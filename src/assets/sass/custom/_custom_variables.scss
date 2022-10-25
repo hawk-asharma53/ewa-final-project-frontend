@@ -1,0 +1,136 @@
+//colors
+
+$black:    #000000 !default;
+$blue:    #01C7F1 !default;
+$gray-900: #526C79 !default;
+$pink:   #F94F7A !default;
+$yellow:  #FBF9F0 !default;
+$gray-800: #555555 !default;
+$theme-red: #ff5156 !default;
+$theme-red-hover: #f04449 !default;
+$theme-gray: #333333 !default;
+$theme-gray-opcity-75: rgba(51,51,51,0.75);
+$theme-black-opcity-37: rgba(0,0,0,0.37);
+$seprator_btm: #686666;
+$theme-border: #c3c3c3;
+$theme-border-light: #dedede;
+$theme-white-light: #f7f7f7;
+$theme-white-300: #f0f0f0;
+$theme-no-pro-bg: #ebebeb;
+$theme-hr: #a1a1a1;
+$theme-fb: #475993;
+$theme-ggle: #f14336;
+$theme-light-blue: #647078;
+$theme-outline-gray: #d2d2d2;
+$theme-label: #3a3a3a;
+$theme-input: #1e190b;
+$theme-switch-border: #cfcfcf;
+$theme-border1: #cecece;
+$theme-form-error: #ea4031;
+$theme-gray-dropdown: #fcfcfc;
+$theme-gray-checkbox: #dbdbda;
+$theme-uploadbg: #fdfdfd;
+$theme-uploadbg-smtxt: #aab0b9;
+$theme-header-border: #c1c1c1;
+$theme-userdropdown-border: #e1e1e1;
+$theme-userdropdown1-border: #dfdfdf;
+$theme-widget-border: #dddddd;
+$theme-widget-border1: #dbdbdb;
+$theme-progress: #e4e4e5;
+$theme-text-gray-100: #b7bbbe;
+$theme-text-gray-50: #c8c8c8;
+$theme-redbtn: #ff5e63;
+$theme-daysbg: #e6e6eb;
+$theme-daysborder: #e6e6e6;
+$theme-checkboxborder: #cccfd1;
+$theme-progress-light: #faf9fa;
+$theme-previous-step: #5c5c5c;
+$theme-gray-label: rgba(30,25,11,0.65);
+$theme-red-rgba: rgba(255, 81, 86, 0.55);
+$gray-800:#474747;
+$white: #fff;
+$white-100:#e5e5e5;
+$white-300:#cecece;
+$btn-border:#b5b5b5;
+$theme-light-red:#f04449;
+$theme-list-group:#e1e1e3;
+$theme-list-suc:#19ca68;
+$theme-cal-th:#282d32;
+$theme-input-border:#73e6fe;
+$theme-yello:#F2D55D;
+$theme-gray-opcity-45: rgba(51,51,51,0.45);
+
+
+$gray_border_100: #c8c8c8;
+$gray_txt_100: #636363;
+$bggray_100: #fafafa;
+$text_success: #2eb050;
+$booking_flow_border: #e0e0e0;
+$footer_link: #767676;
+$footer_border: #EBEBEB;
+$footer_btn: #f2f2f2;
+
+
+$black_3_op70:rgba(54,54,54,0.70);
+$text_orng: #f57938;
+$text_h1: #414344;
+$text_border_hr: #eef0f1;
+$text_border_btn: #e2e4e7;
+$text_btn: #8b8e91;
+$search_border: #f0f0f0;
+$gray_600: #999999;
+$gray_950: #252528;
+$gray_border_100: #c8c8c8;
+$gray_txt_100: #636363;
+$bggray_100: #fafafa;
+$text_success: #2eb050;
+$booking_flow_border: #e0e0e0;
+$rating_gray: #CECECE;
+$gray-500: #eee;
+// Fonts
+$font-family-base:  'Open Sans', sans-serif;
+$font-family-sans-serif: 'Open Sans', sans-serif;
+
+// stylelint-enable value-keyword-case
+$font-size-base:    0.9175rem  !default; // Assumes the browser default, typically `16px`
+
+//  Open Sans fonts family
+@font-face {
+  font-family: "Open Sans";
+  src: 
+  url(font-path("opensans/opensans-light/OpenSans-Light.woff2")) format("woff2"),
+  url(font-path("opensans/opensans-light/OpenSans-Light.woff")) format("woff");
+  font-weight: 300;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: 
+  url(font-path("opensans/opensans-regular/OpenSans-Regular.woff2")) format("woff2"),
+  url(font-path("opensans/opensans-regular/OpenSans-Regular.woff")) format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans";
+  src:url(font-path("opensans/opensans-sembold/OpenSans-SemiBold.woff2")) format("woff2"),
+  url(font-path("opensans/opensans-sembold/OpenSans-SemiBold.woff")) format("woff");
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url(font-path("opensans/opensans-bold/OpenSans-Bold.woff2")) format("woff2"),
+  url(font-path("opensans/opensans-bold/OpenSans-Bold.woff")) format("woff");
+  font-weight: bold;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Open Sans";
+  src: url(font-path("opensans/opensans-extrabold/OpenSans-ExtraBold.woff2")) format("woff2"),
+  url(font-path("opensans/opensans-extrabold/OpenSans-ExtraBold.woff")) format("woff");
+  font-weight: 800;
+  font-style: normal;
+}
+
+
