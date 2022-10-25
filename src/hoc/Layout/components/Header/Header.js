@@ -1,5 +1,7 @@
 import React from 'react';
 import './header.css';
+import { Link } from 'react-router-dom';
+import { routes } from 'utility/constants';
 
 export const Header = props => {
   return (
@@ -23,9 +25,9 @@ export const Header = props => {
               >
                 <ul class="site-menu main-menu js-clone-nav ml-auto d-none d-lg-block">
                   <li class="active">
-                    <a href="index.html" class="nav-link">
+                    <Link to={routes.HOME} className="nav-link">
                       Home
-                    </a>
+                    </Link>
                   </li>
                   <li>
                     <a href="project.html" class="nav-link">
@@ -68,9 +70,9 @@ export const Header = props => {
                     </a>
                   </li>
                   <li>
-                    <a href="contact.html" class="nav-link">
-                      Contact
-                    </a>
+                    <Link to={routes.LOGIN} className="nav-link">
+                      Login
+                    </Link>
                   </li>
                 </ul>
               </nav>
