@@ -443,7 +443,6 @@ legend {
     -ms-flex-align: center;
     align-items: center;
     font-family: 'Poppins', sans-serif;
-    background-color: black;
     background-size: cover;
     background-position: center center;
     padding: 15px;
@@ -455,10 +454,9 @@ legend {
 }
 
 .s01 form legend {
-    font-size: 72px;
+    font-size: 40px;
     line-height: 1;
-    color: #fff;
-    margin-bottom: 60px;
+    color: black;
 }
 
 .s01 form .inner-form {
