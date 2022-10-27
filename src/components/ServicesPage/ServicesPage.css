@@ -1,0 +1,14 @@
+.servicesPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.filtersRow {
+    margin-top: 18px;
+    margin-bottom: 18px;
+}
+
+.itemCarousel {
+    width: 85%;
+}

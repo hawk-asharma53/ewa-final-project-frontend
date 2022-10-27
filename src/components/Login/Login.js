@@ -23,7 +23,9 @@ export const Login = () => {
         <button className="buttonClass" type="submit">
           Login
         </button>
-        <Link to={routes.SIGNUP}>New User?</Link>
+        <Link className="alignLinkCenter" to={routes.SIGNUP}>
+          New User?
+        </Link>
       </form>
     </div>
   );

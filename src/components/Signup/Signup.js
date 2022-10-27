@@ -27,7 +27,9 @@ const Signup = () => {
         <button className="buttonClass" type="submit">
           Signup
         </button>
-        <Link to={routes.LOGIN}>Back to Login?</Link>
+        <Link className="alignLinkCenter" to={routes.LOGIN}>
+          Back to Login?
+        </Link>
       </form>
     </div>
   );
