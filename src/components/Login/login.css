@@ -12,6 +12,8 @@
 }
 
 .formClass {
+    display: flex;
+    flex-direction: column;
     background: #fff;
     max-width: 360px;
     width: 100%;
@@ -67,6 +69,11 @@
 
 button:hover {
     background: #55D3AC;
+}
+
+.alignLinkCenter {
+    align-self: center;
+    margin-top: 18px;
 }
 
 @media(max-width: 458px) {

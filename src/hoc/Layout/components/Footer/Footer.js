@@ -6,34 +6,24 @@ export const Footer = () => {
     <footer class="footer-distributed">
       <div class="footer-left">
         <h3>
-          Fantacy<span>Design</span>
+          Home<span>Verse</span>
         </h3>
 
-        <p class="footer-links">
-          <a href="#">Home</a>·<a href="#">Blog</a>·<a href="#">Pricing</a>·
-          <a href="#">About</a>·<a href="#">Faq</a>·<a href="#">Contact</a>
-        </p>
-
-        <p class="footer-company-name">FantacyDesign &copy; 2021</p>
+        <p class="footer-company-name">HomeVerse Services &copy; 2022</p>
       </div>
 
       <div class="footer-center">
         <div>
           <i class="fa fa-map-marker"></i>
           <p>
-            <span>Califonia </span> US(united State)
+            <span>Chicago, IL, USA </span>
           </p>
-        </div>
-
-        <div>
-          <i class="fa fa-phone"></i>
-          <p>+1 555 000000000</p>
         </div>
 
         <div>
           <i class="fa fa-envelope"></i>
           <p>
-            <a href="mailto:support@company.com">fantacydesignss@gmail.com</a>
+            <a href="mailto:support@company.com">support@homeverse.com</a>
           </p>
         </div>
       </div>
@@ -41,24 +31,9 @@ export const Footer = () => {
       <div class="footer-right">
         <p class="footer-company-about">
           <span>About the company</span>
-          Fantacy Design is a blog for web designers, web develpor &amp; SEO
-          Learner.
+          HomeVerse Services is the leading home hub and service provider in the
+          Greater Chicago Area
         </p>
-
-        <div class="footer-icons">
-          <a href="#">
-            <i class="fa fa-facebook"></i>
-          </a>
-          <a href="#">
-            <i class="fa fa-twitter"></i>
-          </a>
-          <a href="#">
-            <i class="fa fa-linkedin"></i>
-          </a>
-          <a href="#">
-            <i class="fa fa-github"></i>
-          </a>
-        </div>
       </div>
     </footer>
   );
