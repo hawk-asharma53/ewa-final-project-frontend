@@ -113,7 +113,7 @@ const Dashboard = () => {
     };
 
     return (
-        <div className="grid">
+        <div className="grid mx-8 mt-4">
             <div className="col-3">
                 <div className="card mb-0">
                     <div className="flex justify-content-between mb-3">
@@ -179,7 +179,7 @@ const Dashboard = () => {
                 <div className="card">
                     <h5>Recent Sales</h5>
                     <DataTable value={products} rows={5} paginator responsiveLayout="scroll">
-                        <Column header="Image" body={(data) => <img className="shadow-2" src={`public/demo/images/product/${data.image}`} alt={data.image} width="50" />} />
+                        <Column header="Image" body={(data) => <img className="shadow-2" src={`demo/images/product/${data.image}`} alt={data.image} width="50" />} />
                         <Column field="name" header="Name" sortable style={{ width: '35%' }} />
                         <Column field="price" header="Price" sortable style={{ width: '35%' }} body={(data) => formatCurrency(data.price)} />
                         <Column
