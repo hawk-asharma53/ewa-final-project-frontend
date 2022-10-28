@@ -6,7 +6,8 @@ export const routes = {
   PRODUCTS: '/products',
   SERVICES: '/services',
   ABOUT: '/about',
-  CHECKOUT: '/checkout'
+  CHECKOUT: '/checkout',
+  DASHBOARD: '/dashboard'
 };
 
 export const ServiceFilters = {
