@@ -527,3 +527,7 @@ a, a:hover {
         padding-bottom: 30px !important;
     }
 }
+
+.seperator {
+    border-bottom: #b3b3b3 solid 1px;
+}
