@@ -47,14 +47,23 @@ class ProductsPage extends Component {
             onChange={e => this.handlePrimaryFilterChange(e)}
           ></SelectButton>
         </span>
-        <span className="itemCarousel">
-          <Carousel
+        <span className="itemCarousel"> 
+          <div className='grid'>
+            {
+              productsOffered.map( (listItem) => (
+                <div className='col-3'>
+                  <ListingComponent listItem={listItem} type={ListItemTypes.Product} />
+                </div>
+              ) )
+            }
+          </div>
+          {/* <Carousel
             value={productsOffered}
             itemTemplate={this.itemTemplate}
             numVisible={5}
             numScroll={1}
             autoplayInterval={3000}
-          ></Carousel>
+          ></Carousel> */}
         </span>
       </div>
     );

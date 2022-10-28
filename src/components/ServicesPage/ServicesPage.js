@@ -64,13 +64,22 @@ class ServicesPage extends Component {
           ></SelectButton>
         </span>
         <span className="itemCarousel">
-          <Carousel
+          <div className='grid'>
+            {
+              servicesOffered.map( (listItem) => (
+                <div className='col-3'>
+                  <ListingComponent listItem={listItem} type={ListItemTypes.Service} />
+                </div>
+              ) )
+            }
+          </div>
+          {/* <Carousel
             value={servicesOffered}
             itemTemplate={this.itemTemplate}
             numVisible={5}
             numScroll={1}
             autoplayInterval={3000}
-          ></Carousel>
+          ></Carousel> */}
         </span>
       </div>
     );

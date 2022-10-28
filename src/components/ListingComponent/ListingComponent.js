@@ -22,7 +22,7 @@ class ListingComponent extends Component {
             title={listItem.provider}
             subTitle={listItem.serviceType}
             footer={<Button label="View Details" />}
-            header={<img alt="provider image" src="images/usercard.png" />}
+            header={<img alt="provider image item-image" src="plumber.png" />}
           >
             {'Charged at $' + listItem.price + '/hour'}
           </Card>
