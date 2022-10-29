@@ -9,6 +9,7 @@ import ServicesPage from '../components/ServicesPage/ServicesPage';
 import CheckoutPage from '../components/CheckoutPage/CheckoutPage';
 import { routes } from '../utility/constants';
 import Dashboard from 'components/Dashboard/Dashboard';
+import StoreLocationPage from 'components/StoreLocationPage/StoreLocationPage';
 
 export default () => {
   return (
@@ -21,6 +22,7 @@ export default () => {
       <Route exact path={routes.ABOUT} component={HomePage} />
       <Route exact path={routes.CHECKOUT} component={CheckoutPage} />
       <Route exact path={routes.DASHBOARD} component={Dashboard} />
+      <Route exact path={routes.MAP} component={StoreLocationPage} />
       <Route exact path="*" component={() => <Redirect to={routes.ROOT} />} />
     </Switch>
   );
