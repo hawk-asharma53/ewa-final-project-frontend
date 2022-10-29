@@ -3,28 +3,51 @@ import './ProductsPage.css';
 import ListingComponent from '../ListingComponent/ListingComponent';
 import { SelectButton } from 'primereact/selectbutton';
 import { ProductFilters, ListItemTypes } from '../../utility/constants';
-import { Carousel } from 'primereact/carousel';
 
 class ProductsPage extends Component {
   constructor(props) {
     super(props);
     let plumbing = {
+      productName: 'Plumbing Kit',
+      provider: 'The PlumbShop',
+      productType: 'plumbing',
+      price: 199.49,
+    };
+    let woodworking = {
       productName: 'Woodworking Kit',
-      provider: 'Amazon Inc.',
+      provider: 'Carpentry Store',
+      productType: 'woodworking',
+      price: 199.49,
+    };
+    let painting = {
+      productName: 'Home Painting Kit',
+      provider: 'Elephant Company',
+      productType: 'painting',
+      price: 199.49,
+    };
+    let gardening = {
+      productName: 'Gardening Kit',
+      provider: 'Green Thumb Groups',
+      productType: 'gardening',
+      price: 199.49,
+    };
+    let automobile = {
+      productName: 'Automobile Maintainence Kit',
+      provider: 'General Motors',
+      productType: 'automobile',
       price: 199.49,
     };
     let productsOffered = [
       plumbing,
+      woodworking,
+      painting,
+      automobile,
+      gardening,
       plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
+      woodworking,
+      painting,
+      automobile,
+      gardening,
     ];
     this.state = {
       productsOffered: productsOffered,
@@ -48,20 +71,29 @@ class ProductsPage extends Component {
           ></SelectButton>
         </span>
         <span className="itemCarousel">
-          <Carousel
-            value={productsOffered}
-            itemTemplate={this.itemTemplate}
-            numVisible={5}
-            numScroll={1}
-            autoplayInterval={3000}
-          ></Carousel>
+          <div className="grid">
+            {productsOffered
+              .filter(
+                listItem => listItem.productType === primaryProductFilterValue,
+              )
+              .map(listItem => (
+                <div className="col-3">
+                  <ListingComponent
+                    listItem={listItem}
+                    type={ListItemTypes.Product}
+                  />
+                </div>
+              ))}
+          </div>
         </span>
       </div>
     );
   }
 
   itemTemplate = listItem => {
-    return <ListingComponent listItem={listItem} type={ListItemTypes.Product} />;
+    return (
+      <ListingComponent listItem={listItem} type={ListItemTypes.Product} />
+    );
   };
 
   handlePrimaryFilterChange = e => {
