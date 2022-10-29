@@ -3,28 +3,67 @@ import './ServicesPage.css';
 import ListingComponent from '../ListingComponent/ListingComponent';
 import { SelectButton } from 'primereact/selectbutton';
 import { ServiceFilters, ListItemTypes } from '../../utility/constants';
-import { Carousel } from 'primereact/carousel';
 
 class ServicesPage extends Component {
   constructor(props) {
     super(props);
     let plumbing = {
-      serviceType: 'Plumbing',
-      provider: 'Star Plumbers Inc.',
+      primaryServiceType: 'interior',
+      secondaryServiceType: 'plumbing',
+      provider: 'Star Plumbers Group',
+      price: 20,
+    };
+    let furniture = {
+      primaryServiceType: 'interior',
+      secondaryServiceType: 'furniture',
+      provider: 'Prime Furniture Shop',
+      price: 20,
+    };
+    let interiorPainting = {
+      primaryServiceType: 'interior',
+      secondaryServiceType: 'painting',
+      provider: 'A1 Painters',
+      price: 20,
+    };
+    let electrical = {
+      primaryServiceType: 'interior',
+      secondaryServiceType: 'electrical',
+      provider: 'Fixit Electric Works',
+      price: 20,
+    };
+    let lawn = {
+      primaryServiceType: 'exterior',
+      secondaryServiceType: 'lawn',
+      provider: 'Green Thumb Company',
+      price: 20,
+    };
+    let exteriorPainting = {
+      primaryServiceType: 'exterior',
+      secondaryServiceType: 'painting',
+      provider: 'Alpha Walls And Paints',
+      price: 20,
+    };
+    let water = {
+      primaryServiceType: 'exterior',
+      secondaryServiceType: 'waterproofing',
+      provider: 'Fixit Waterproofing',
       price: 20,
     };
     let servicesOffered = [
       plumbing,
+      interiorPainting,
+      furniture,
+      electrical,
+      lawn,
+      exteriorPainting,
+      water,
       plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
+      interiorPainting,
+      furniture,
+      electrical,
+      lawn,
+      exteriorPainting,
+      water,
     ];
     this.state = {
       servicesOffered: servicesOffered,
@@ -64,29 +103,31 @@ class ServicesPage extends Component {
           ></SelectButton>
         </span>
         <span className="itemCarousel">
-          <div className='grid'>
-            {
-              servicesOffered.map( (listItem) => (
-                <div className='col-3'>
-                  <ListingComponent listItem={listItem} type={ListItemTypes.Service} />
+          <div className="grid">
+            {servicesOffered
+              .filter(
+                listItem =>
+                  listItem.primaryServiceType === primaryServiceFilterValue &&
+                  listItem.secondaryServiceType === secondaryServiceFilterValue,
+              )
+              .map(listItem => (
+                <div className="col-3">
+                  <ListingComponent
+                    listItem={listItem}
+                    type={ListItemTypes.Service}
+                  />
                 </div>
-              ) )
-            }
+              ))}
           </div>
-          {/* <Carousel
-            value={servicesOffered}
-            itemTemplate={this.itemTemplate}
-            numVisible={5}
-            numScroll={1}
-            autoplayInterval={3000}
-          ></Carousel> */}
         </span>
       </div>
     );
   }
 
   itemTemplate = listItem => {
-    return <ListingComponent listItem={listItem} type={ListItemTypes.Service} />;
+    return (
+      <ListingComponent listItem={listItem} type={ListItemTypes.Service} />
+    );
   };
 
   handlePrimaryFilterChange = e => {
