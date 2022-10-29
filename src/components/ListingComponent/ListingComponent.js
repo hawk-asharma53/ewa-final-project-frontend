@@ -35,7 +35,9 @@ class ListingComponent extends Component {
             title={listItem.productName}
             subTitle={listItem.provider}
             footer={<Button label="View Details" />}
-            header={<img alt="provider image item-image" src="woodworking.jpeg" />}
+            header={
+              <img alt="provider image item-image" src="woodworking.jpeg" />
+            }
           >
             {'Available for $' + listItem.price}
           </Card>
