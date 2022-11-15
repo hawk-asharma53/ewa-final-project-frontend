@@ -32,7 +32,7 @@ const Signup = () => {
         {({ errors, touched }) => {
           return (
             <Form className="formClass">
-              <div class="rowLogin">
+              <div className="rowLogin">
                 <label for="user_first_name">First Name</label>
                 <Field
                   type="text"
@@ -46,7 +46,7 @@ const Signup = () => {
                     : null}
                 </span>
               </div>
-              <div class="rowLogin">
+              <div className="rowLogin">
                 <label for="user_last_name">Last Name</label>
                 <Field
                   type="text"
@@ -61,7 +61,7 @@ const Signup = () => {
                 </span>
               </div>
 
-              <div class="rowLogin">
+              <div className="rowLogin">
                 <label for="email">Email</label>
                 <Field
                   type="email"
@@ -73,7 +73,7 @@ const Signup = () => {
                   {errors.email && touched.email ? errors.email : null}
                 </span>
               </div>
-              <div class="rowLogin">
+              <div className="rowLogin">
                 <label for="password">Password</label>
                 <Field
                   type="password"

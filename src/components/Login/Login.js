@@ -29,7 +29,7 @@ export const Login = () => {
         {({ errors, touched }) => {
           return (
             <Form className="formClass">
-              <div class="rowLogin">
+              <div className="rowLogin">
                 <label for="email">Email</label>
                 <Field
                   type="email"
@@ -41,7 +41,7 @@ export const Login = () => {
                   {errors.email && touched.email ? errors.email : null}
                 </span>
               </div>
-              <div class="rowLogin">
+              <div className="rowLogin">
                 <label for="password">Password</label>
                 <Field
                   type="password"
