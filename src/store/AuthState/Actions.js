@@ -1,11 +1,12 @@
-import * as API from 'api/authAPI';
+import * as AUTHAPI from 'api/authAPI';
+import * as DATAAPI from 'api/dataAPI';
 import storage from 'utility/storage';
 import { toastMsg } from 'utility/utility';
 
 export const Actions = set => ({
   signUp: async values => {
     set({ isLoading: true });
-    await API.signup(values)
+    await AUTHAPI.signup(values)
       .then(res => {
         console.log(res);
         toastMsg(`${res?.data?.error?.message}`, true);
@@ -18,7 +19,7 @@ export const Actions = set => ({
   },
   login: async values => {
     set({ isLoading: true });
-    await API.login(values)
+    await AUTHAPI.login(values)
       .then(res => {
         set({
           userData: res?.data?.data?.user,
@@ -30,6 +31,36 @@ export const Actions = set => ({
       .catch(error => {
         console.log(error, 'EERROR');
         // toastMsg(`${error?.error?.message}`, true);
+      });
+  },
+  getProducts: async () => {
+    set({ isLoading: true });
+    await DATAAPI.getProducts()
+      .then(res => {
+        set({ productsData: res?.data?.data });
+      })
+      .catch(error => {
+        console.log(error, 'EERROR');
+      });
+  },
+  getServices: async () => {
+    set({ isLoading: true });
+    await DATAAPI.getServices()
+      .then(res => {
+        set({ serviceData: res?.data?.data });
+      })
+      .catch(error => {
+        console.log(error, 'EERROR');
+      });
+  },
+  getStores: async () => {
+    set({ isLoading: true });
+    await DATAAPI.getStores()
+      .then(res => {
+        set({ storesData: res?.data?.data });
+      })
+      .catch(error => {
+        console.log(error, 'EERROR');
       });
   },
   logout: async values => {

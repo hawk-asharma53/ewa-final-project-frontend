@@ -18,22 +18,23 @@ export const Header = () => {
   ];
 
   const handleTabChanged = e => {
-    setState({ activeTabIndex: e.index }, () => {
-      switch (e.index) {
-        case 0:
-          navigateToPage(routes.HOME);
-          break;
-        case 1:
-          navigateToPage(routes.PRODUCTS);
-          break;
-        case 2:
-          navigateToPage(routes.SERVICES);
-          break;
-        case 3:
-          navigateToPage(routes.ABOUT);
-          break;
-      }
-    });
+    setState({ activeTabIndex: e.index });
+    switch (e.index) {
+      case 0:
+        navigateToPage(routes.HOME);
+        break;
+      case 1:
+        navigateToPage(routes.PRODUCTS);
+        break;
+      case 2:
+        navigateToPage(routes.SERVICES);
+        break;
+      case 3:
+        navigateToPage(routes.ABOUT);
+        break;
+      default:
+        console.log(e.index);
+    }
   };
 
   const navigateToPage = path => {
