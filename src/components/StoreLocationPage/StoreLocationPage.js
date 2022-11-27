@@ -24,7 +24,10 @@ const StoreLocationPage = () => {
 
   return (
     <div className="flex flex-row mt-4">
-      <div className="w-4 ml-4 pr-4" style={{ height: '800px' }}>
+      <div
+        className="w-4 ml-4 pr-4"
+        style={{ height: '800px', overflowY: 'scroll' }}
+      >
         <div className="grid">
           <div className="col-12">
             <span className="p-input-icon-left w-12">
