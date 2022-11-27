@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import Oux from 'hoc/Oux/Oux';
 import './checkoutpage.css';
 import { InputText } from 'primereact/inputtext';
+import { useCart } from 'react-use-cart';
 
 const CheckoutPage = () => {
   const [value1, setValue1] = useState('');
@@ -9,6 +9,8 @@ const CheckoutPage = () => {
   const [value3, setValue3] = useState('');
   const [value4, setValue4] = useState('');
   const [value5, setValue5] = useState('');
+
+  const { cartTotal, items } = useCart();
 
   return (
     <div className="grid mx-8 mt-4">
@@ -169,7 +171,7 @@ const CheckoutPage = () => {
           <div className="col-12">
             <div className="flex flex-row justify-content-between">
               <p>Subtotal</p>
-              <p>$299</p>
+              <p>${cartTotal}</p>
             </div>
             <div className="flex flex-row justify-content-between">
               <p>Estimated Delivery</p>
@@ -177,17 +179,21 @@ const CheckoutPage = () => {
             </div>
             <div className="flex flex-row justify-content-between">
               <p className="text-black font-semibold">Total</p>
-              <p className="text-black font-semibold">$299</p>
+              <p className="text-black font-semibold">${cartTotal}</p>
             </div>
           </div>
           <div className="col-12 seperator ml-2 mt-0"></div>
           <div className="col-12 mt-2">
             <h4>Items</h4>
           </div>
-          <div className='col-12'>
-            <div>$299</div>
-            <p>1 X Woodworking craft</p>
-          </div>
+          {items.map(item => (
+            <div className="col-12">
+              <div>${item.price}</div>
+              <p>
+                {item.quantity} X {item.title}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </div>

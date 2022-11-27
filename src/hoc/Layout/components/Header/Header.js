@@ -4,11 +4,14 @@ import { Link, useHistory } from 'react-router-dom';
 import { routes } from 'utility/constants';
 import { TabMenu } from 'primereact/tabmenu';
 import useStore from 'store/AuthState';
+import { useCart } from 'react-use-cart';
 
 export const Header = () => {
   const [state, setState] = React.useState({ activeTabIndex: 0 });
   const history = useHistory();
   const store = useStore();
+
+  const { totalUniqueItems } = useCart();
 
   const items = [
     { label: 'Home' },
@@ -64,9 +67,15 @@ export const Header = () => {
               Logout
             </div>
           ) : (
-            <Link to={routes.LOGIN} className="nav-link">
-              Login
-            </Link>
+            <>
+              <Link to={routes.CART} className="nav-link">
+                Cart ({totalUniqueItems})
+              </Link>
+
+              <Link to={routes.LOGIN} className="nav-link">
+                Login
+              </Link>
+            </>
           )}
         </div>
       </div>

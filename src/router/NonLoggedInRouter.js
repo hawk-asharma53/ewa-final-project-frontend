@@ -1,5 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import AboutUs from 'components/AboutUs/AboutUs';
+import Cart from 'components/Cart/Cart';
+import CheckoutPage from 'components/CheckoutPage/CheckoutPage';
 import { Login } from 'components/Login/Login';
 import ProductsPage from 'components/ProductsPage/ProductsPage';
 import ServicesPage from 'components/ServicesPage/ServicesPage';
@@ -15,7 +17,9 @@ export default () => {
     <Switch>
       <Route exact path={routes.ROOT} component={HomePage} />
       <Route exact path={routes.LOGIN} component={Login} />
+      <Route exact path={routes.CHECKOUT} component={CheckoutPage} />
       <Route exact path={routes.SIGNUP} component={Signup} />
+      <Route exact path={routes.CART} component={Cart} />
       <Route exact path={routes.ABOUT} component={AboutUs} />
       <Route exact path={routes.PRODUCTS} component={ProductsPage} />
       <Route exact path={routes.SERVICES} component={ServicesPage} />

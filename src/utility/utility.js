@@ -12,7 +12,6 @@ export const toastMsg = (msg, error = false, autoClose = 2000) => {
       animationOut: ['animated', 'fadeOut'],
       dismiss: {
         duration: autoClose,
-        //   onScreen: true,
         showIcon: true,
       },
     });
@@ -27,7 +26,6 @@ export const toastMsg = (msg, error = false, autoClose = 2000) => {
       animationOut: ['animated', 'fadeOut'],
       dismiss: {
         duration: autoClose,
-        //   onScreen: true,
         showIcon: true,
       },
     });

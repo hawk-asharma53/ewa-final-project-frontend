@@ -9,6 +9,7 @@ export const routes = {
   CHECKOUT: '/checkout',
   DASHBOARD: '/dashboard',
   MAP: '/stores',
+  CART: '/cart',
 };
 
 export const ServiceFilters = [

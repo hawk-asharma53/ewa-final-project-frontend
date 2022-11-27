@@ -4,12 +4,21 @@ import ListingComponent from '../ListingComponent/ListingComponent';
 import { SelectButton } from 'primereact/selectbutton';
 import { ProductFilters, ListItemTypes } from '../../utility/constants';
 import useStore from 'store/AuthState';
+import { useCart } from 'react-use-cart';
+import { toastMsg } from 'utility/utility';
 
 export const ProductsPage = () => {
   const [state, setState] = useState({
     productsOffered: [], //product array goes here
     primaryProductFilterValue: 'Paint', //product type string goes here
   });
+
+  const { addItem } = useCart();
+
+  const addToCart = val => {
+    addItem(val);
+    toastMsg('Added to Cart', false);
+  };
 
   const handlePrimaryFilterChange = e => {
     setState({ primaryProductFilterValue: e.value });
@@ -57,6 +66,7 @@ export const ProductsPage = () => {
                   <div className="col-3" key={listItem.id}>
                     <ListingComponent
                       listItem={listItem}
+                      addToCart={addToCart}
                       type={ListItemTypes.Product}
                     />
                   </div>

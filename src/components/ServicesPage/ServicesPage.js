@@ -4,12 +4,21 @@ import ListingComponent from '../ListingComponent/ListingComponent';
 import { SelectButton } from 'primereact/selectbutton';
 import { ServiceFilters, ListItemTypes } from '../../utility/constants';
 import useStore from 'store/AuthState';
+import { useCart } from 'react-use-cart';
+import { toastMsg } from 'utility/utility';
 
 export const ServicesPage = () => {
   const [state, setState] = useState({
     servicesOffered: [], //product array goes here
     primaryServiceFilterValue: 'Handyman', //product type string goes here
   });
+
+  const { addItem } = useCart();
+
+  const addToCart = val => {
+    addItem(val);
+    toastMsg('Added to Cart', false);
+  };
 
   const handlePrimaryFilterChange = e => {
     setState({ primaryServiceFilterValue: e.value });
@@ -54,6 +63,7 @@ export const ServicesPage = () => {
                     <ListingComponent
                       listItem={listItem}
                       type={ListItemTypes.Service}
+                      addToCart={addToCart}
                     />
                   </div>
                 );

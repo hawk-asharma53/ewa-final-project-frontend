@@ -14,14 +14,16 @@ class ListingComponent extends Component {
   componentDidMount() {}
 
   render() {
-    const { listItem, type } = this.props;
+    const { listItem, type, addToCart } = this.props;
     if (type === ListItemTypes.Service) {
       return (
         <span className="listCard">
           <Card
             title={listItem.title}
             subTitle={listItem.subcategory}
-            footer={<Button label="View Details" />}
+            footer={
+              <Button onClick={() => addToCart(listItem)} label="Add to Cart" />
+            }
             header={
               listItem.image !== '' && (
                 <img
@@ -42,7 +44,9 @@ class ListingComponent extends Component {
           <Card
             title={listItem.title}
             subTitle={listItem.subcategory}
-            footer={<Button label="View Details" />}
+            footer={
+              <Button onClick={() => addToCart(listItem)} label="Add to Cart" />
+            }
             header={
               <img
                 alt="productImage"
