@@ -33,9 +33,9 @@ export const Actions = set => ({
         // toastMsg(`${error?.error?.message}`, true);
       });
   },
-  getProducts: async () => {
+  getProducts: async id => {
     set({ isLoading: true });
-    await DATAAPI.getProducts()
+    await DATAAPI.getProducts(id)
       .then(res => {
         set({ productsData: res?.data?.data });
       })
@@ -43,9 +43,9 @@ export const Actions = set => ({
         console.log(error, 'EERROR');
       });
   },
-  getServices: async () => {
+  getServices: async id => {
     set({ isLoading: true });
-    await DATAAPI.getServices()
+    await DATAAPI.getServices(id)
       .then(res => {
         set({ serviceData: res?.data?.data });
       })
