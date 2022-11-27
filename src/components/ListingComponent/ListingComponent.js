@@ -19,10 +19,18 @@ class ListingComponent extends Component {
       return (
         <span className="listCard">
           <Card
-            title={listItem.provider}
-            subTitle={listItem.serviceType}
+            title={listItem.title}
+            subTitle={listItem.subcategory}
             footer={<Button label="View Details" />}
-            header={<img alt="provider image" className='item-image' src="plumber.png" />}
+            header={
+              listItem.image !== '' && (
+                <img
+                  alt="service"
+                  className="item-image"
+                  src={listItem.image}
+                />
+              )
+            }
           >
             {'Charged at $' + listItem.price + '/hour'}
           </Card>
@@ -32,10 +40,16 @@ class ListingComponent extends Component {
       return (
         <span className="listCard">
           <Card
-            title={listItem.productName}
-            subTitle={listItem.provider}
+            title={listItem.title}
+            subTitle={listItem.subcategory}
             footer={<Button label="View Details" />}
-            header={<img alt="provider image " className='item-image' src="woodworking.jpeg" />}
+            header={
+              <img
+                alt="productImage"
+                className="item-image"
+                src={listItem.image}
+              />
+            }
           >
             {'Available for $' + listItem.price}
           </Card>

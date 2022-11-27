@@ -3,8 +3,6 @@ import Oux from 'hoc/Oux/Oux';
 import './homepage.css';
 import ListingComponent from '../ListingComponent/ListingComponent';
 import { ProductFilters, ListItemTypes } from '../../utility/constants';
-import useStore from 'store/AuthState';
-import { useEffect } from 'react';
 
 const HomePage = () => {
   let plumbing = {
@@ -12,16 +10,6 @@ const HomePage = () => {
     provider: 'Amazon Inc.',
     price: 199.49,
   };
-  let store = useStore();
-
-  useEffect(() => {
-    store.getProducts();
-  }, []);
-
-  console.log(
-    store.productsData.filter(e => e.subcategory === 'painting'),
-    'HJEHEHEH',
-  );
 
   let productsOffered = [plumbing, plumbing, plumbing, plumbing];
   return (
