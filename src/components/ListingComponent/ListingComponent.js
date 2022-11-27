@@ -23,7 +23,13 @@ class ListingComponent extends Component {
             subTitle={listItem.subcategory}
             footer={<Button label="View Details" />}
             header={
-              <img alt="service" className="item-image" src={listItem.image} />
+              listItem.image !== '' && (
+                <img
+                  alt="service"
+                  className="item-image"
+                  src={listItem.image}
+                />
+              )
             }
           >
             {'Charged at $' + listItem.price + '/hour'}
