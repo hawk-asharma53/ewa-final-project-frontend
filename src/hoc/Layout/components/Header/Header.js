@@ -14,6 +14,7 @@ export const Header = () => {
     { label: 'Home' },
     { label: 'Products' },
     { label: 'Services' },
+    { label: 'Stores' },
     { label: 'About' },
   ];
 
@@ -30,6 +31,9 @@ export const Header = () => {
         navigateToPage(routes.SERVICES);
         break;
       case 3:
+        navigateToPage(routes.MAP);
+        break;
+      case 4:
         navigateToPage(routes.ABOUT);
         break;
       default:

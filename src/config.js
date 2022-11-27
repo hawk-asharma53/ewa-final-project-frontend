@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const Base_URL = () => {
-  let url = 'https://5470-2620-f3-8000-5060-4ca3-2d39-14b1-2929.ngrok.io/api';
+  let url = 'http://34.66.75.54:3001/api';
   return url;
 };
 
