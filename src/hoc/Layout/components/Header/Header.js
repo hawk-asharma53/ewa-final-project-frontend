@@ -63,9 +63,18 @@ export const Header = () => {
         <div className="site-logo">HomeVerse</div>
         <div className="loginLink">
           {store?.userData?.user_id ? (
-            <div className="logout-button" onClick={handleLogout}>
-              Logout
-            </div>
+            <>
+              <Link to={routes.CART} className="nav-link">
+                Cart ({totalUniqueItems})
+              </Link>
+              <a
+                className="nav-link"
+                style={{ cursor: 'pointer' }}
+                onClick={handleLogout}
+              >
+                Logout
+              </a>
+            </>
           ) : (
             <>
               <Link to={routes.CART} className="nav-link">

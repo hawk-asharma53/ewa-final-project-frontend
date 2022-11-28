@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useCart } from 'react-use-cart';
+import useStore from 'store/AuthState';
 import { routes } from 'utility/constants';
-import serviceImage from 'assets/images/services-icon.png';
 
 const Cart = () => {
   const {
@@ -17,6 +17,7 @@ const Cart = () => {
   } = useCart();
 
   let history = useHistory();
+  let store = useStore();
 
   if (isEmpty)
     return (
@@ -58,12 +59,17 @@ const Cart = () => {
                         {items.map(item => (
                           <div className="row mb-4 d-flex justify-content-between align-items-center">
                             <div className="col-md-2 col-lg-2 col-xl-2">
-                              <img
-                                src={item.image ? item.image : serviceImage}
-                                className="img-fluid rounded-3"
-                                alt="Cotton T-shirt"
-                              />
+                              {item.image ? (
+                                <img
+                                  src={item.image}
+                                  className="img-fluid rounded-3"
+                                  alt="Cotton T-shirt"
+                                />
+                              ) : (
+                                ''
+                              )}
                             </div>
+
                             <div className="col-md-3 col-lg-3 col-xl-3">
                               <h6 className="text-muted">{item.subcategory}</h6>
                               <h6 className="text-black mb-0">{item.title}</h6>
@@ -129,7 +135,13 @@ const Cart = () => {
                         </div>
 
                         <button
-                          onClick={() => history.push('/checkout')}
+                          onClick={() => {
+                            if (store?.userData?.user_id) {
+                              history.push('/checkout');
+                            } else {
+                              history.push('/login');
+                            }
+                          }}
                           className="btn btn-dark btn-block btn-lg"
                         >
                           Checkout

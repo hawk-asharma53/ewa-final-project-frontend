@@ -5,7 +5,6 @@ import { toastMsg } from 'utility/utility';
 
 export const Actions = set => ({
   signUp: async values => {
-    set({ isLoading: true });
     await AUTHAPI.signup(values)
       .then(res => {
         console.log(res);
@@ -18,7 +17,6 @@ export const Actions = set => ({
       });
   },
   login: async values => {
-    set({ isLoading: true });
     await AUTHAPI.login(values)
       .then(res => {
         set({
@@ -34,7 +32,6 @@ export const Actions = set => ({
       });
   },
   getProducts: async id => {
-    set({ isLoading: true });
     await DATAAPI.getProducts(id)
       .then(res => {
         set({ productsData: res?.data?.data });
@@ -44,7 +41,6 @@ export const Actions = set => ({
       });
   },
   getServices: async id => {
-    set({ isLoading: true });
     await DATAAPI.getServices(id)
       .then(res => {
         set({ serviceData: res?.data?.data });
@@ -54,10 +50,19 @@ export const Actions = set => ({
       });
   },
   getStores: async () => {
-    set({ isLoading: true });
     await DATAAPI.getStores()
       .then(res => {
         set({ storesData: res?.data?.data });
+      })
+      .catch(error => {
+        console.log(error, 'EERROR');
+      });
+  },
+  placeOrder: async order => {
+    await DATAAPI.placeOrder(order)
+      .then(res => {
+        console.log(res);
+        toastMsg(`Order successfully placed`, false);
       })
       .catch(error => {
         console.log(error, 'EERROR');
