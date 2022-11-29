@@ -521,9 +521,18 @@ a, a:hover {
     justify-content: end;
 }
 
+.logout-button {
+    cursor: pointer;
+    color: red;
+}
+
 @media (max-width: 991.98px) {
     .sticky-wrapper .shrink {
         padding-top: 30px !important;
         padding-bottom: 30px !important;
     }
+}
+
+.seperator {
+    border-bottom: #b3b3b3 solid 1px;
 }

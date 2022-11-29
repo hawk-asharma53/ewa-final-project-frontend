@@ -1,72 +1,82 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ProductsPage.css';
 import ListingComponent from '../ListingComponent/ListingComponent';
 import { SelectButton } from 'primereact/selectbutton';
 import { ProductFilters, ListItemTypes } from '../../utility/constants';
-import { Carousel } from 'primereact/carousel';
+import useStore from 'store/AuthState';
+import { useCart } from 'react-use-cart';
+import { toastMsg } from 'utility/utility';
 
-class ProductsPage extends Component {
-  constructor(props) {
-    super(props);
-    let plumbing = {
-      productName: 'Woodworking Kit',
-      provider: 'Amazon Inc.',
-      price: 199.49,
-    };
-    let productsOffered = [
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-    ];
-    this.state = {
-      productsOffered: productsOffered,
-      primaryProductFilterValue: ProductFilters[0].value,
-    };
-  }
+export const ProductsPage = () => {
+  const [state, setState] = useState({
+    productsOffered: [], //product array goes here
+    primaryProductFilterValue: 'Paint', //product type string goes here
+  });
 
-  state = {};
+  const { addItem } = useCart();
 
-  componentDidMount() {}
-
-  render() {
-    const { productsOffered, primaryProductFilterValue } = this.state;
-    return (
-      <div className="productsPage">
-        <span className="filtersRow">
-          <SelectButton
-            value={primaryProductFilterValue}
-            options={ProductFilters}
-            onChange={e => this.handlePrimaryFilterChange(e)}
-          ></SelectButton>
-        </span>
-        <span className="itemCarousel">
-          <Carousel
-            value={productsOffered}
-            itemTemplate={this.itemTemplate}
-            numVisible={5}
-            numScroll={1}
-            autoplayInterval={3000}
-          ></Carousel>
-        </span>
-      </div>
-    );
-  }
-
-  itemTemplate = listItem => {
-    return <ListingComponent listItem={listItem} type={ListItemTypes.Product} />;
+  const addToCart = val => {
+    addItem(val);
+    toastMsg('Added to Cart', false);
   };
 
-  handlePrimaryFilterChange = e => {
-    this.setState({ primaryProductFilterValue: e.value });
+  const handlePrimaryFilterChange = e => {
+    setState({ primaryProductFilterValue: e.value });
   };
-}
+  let store = useStore();
+
+  useEffect(() => {
+    if (state.primaryProductFilterValue === 'Paint') {
+      store.getProducts(1);
+    } else if (
+      state.primaryProductFilterValue === 'Heating, Cooling & Air Quality'
+    ) {
+      store.getProducts(2);
+    } else if (state.primaryProductFilterValue === 'Garage & Storage') {
+      store.getProducts(3);
+    } else if (state.primaryProductFilterValue === 'Home Safety') {
+      store.getProducts(4);
+    } else if (state.primaryProductFilterValue === 'Kitchen Renovation') {
+      store.getProducts(5);
+    } else if (
+      state.primaryProductFilterValue === 'Wall Stickers & Coverings'
+    ) {
+      store.getProducts(6);
+    }
+  }, [state.primaryProductFilterValue]);
+
+  useEffect(() => {
+    setState({ productsOffered: store.productsData });
+  }, [store.productsData]);
+
+  return (
+    <div className="productsPage">
+      <span className="filtersRow">
+        <SelectButton
+          value={state.primaryProductFilterValue}
+          options={ProductFilters}
+          onChange={e => handlePrimaryFilterChange(e)}
+        ></SelectButton>
+      </span>
+      <span className="itemCarousel">
+        <div className="grid">
+          {state.productsOffered && state.productsOffered.length > 0
+            ? state.productsOffered.slice(0, 50).map(listItem => {
+                return (
+                  <div className="col-3" key={listItem.id}>
+                    <ListingComponent
+                      listItem={listItem}
+                      addToCart={addToCart}
+                      type={ListItemTypes.Product}
+                    />
+                  </div>
+                );
+              })
+            : ''}
+        </div>
+      </span>
+    </div>
+  );
+};
 
 export default ProductsPage;

@@ -14,15 +14,25 @@ class ListingComponent extends Component {
   componentDidMount() {}
 
   render() {
-    const { listItem, type } = this.props;
+    const { listItem, type, addToCart } = this.props;
     if (type === ListItemTypes.Service) {
       return (
         <span className="listCard">
           <Card
-            title={listItem.provider}
-            subTitle={listItem.serviceType}
-            footer={<Button label="View Details" />}
-            header={<img alt="provider image" src="images/usercard.png" />}
+            title={listItem.title}
+            subTitle={listItem.subcategory}
+            footer={
+              <Button onClick={() => addToCart(listItem)} label="Add to Cart" />
+            }
+            header={
+              listItem.image !== '' && (
+                <img
+                  alt="service"
+                  className="item-image"
+                  src={listItem.image}
+                />
+              )
+            }
           >
             {'Charged at $' + listItem.price + '/hour'}
           </Card>
@@ -32,10 +42,18 @@ class ListingComponent extends Component {
       return (
         <span className="listCard">
           <Card
-            title={listItem.productName}
-            subTitle={listItem.provider}
-            footer={<Button label="View Details" />}
-            header={<img alt="provider image" src="images/usercard.png" />}
+            title={listItem.title}
+            subTitle={listItem.subcategory}
+            footer={
+              <Button onClick={() => addToCart(listItem)} label="Add to Cart" />
+            }
+            header={
+              <img
+                alt="productImage"
+                className="item-image"
+                src={listItem.image}
+              />
+            }
           >
             {'Available for $' + listItem.price}
           </Card>

@@ -1,99 +1,78 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ServicesPage.css';
 import ListingComponent from '../ListingComponent/ListingComponent';
 import { SelectButton } from 'primereact/selectbutton';
 import { ServiceFilters, ListItemTypes } from '../../utility/constants';
-import { Carousel } from 'primereact/carousel';
+import useStore from 'store/AuthState';
+import { useCart } from 'react-use-cart';
+import { toastMsg } from 'utility/utility';
 
-class ServicesPage extends Component {
-  constructor(props) {
-    super(props);
-    let plumbing = {
-      serviceType: 'Plumbing',
-      provider: 'Star Plumbers Inc.',
-      price: 20,
-    };
-    let servicesOffered = [
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-      plumbing,
-    ];
-    this.state = {
-      servicesOffered: servicesOffered,
-      primaryServiceFilterValue: ServiceFilters.Interior.value,
-      secondaryServiceFilterValue: ServiceFilters.Interior.subFilters[0].value,
-    };
-  }
+export const ServicesPage = () => {
+  const [state, setState] = useState({
+    servicesOffered: [], //product array goes here
+    primaryServiceFilterValue: 'Handyman', //product type string goes here
+  });
 
-  state = {};
+  const { addItem } = useCart();
 
-  componentDidMount() {}
-
-  render() {
-    const {
-      servicesOffered,
-      primaryServiceFilterValue,
-      secondaryServiceFilterValue,
-    } = this.state;
-    return (
-      <div className="servicesPage">
-        <span className="filtersRow">
-          <SelectButton
-            value={primaryServiceFilterValue}
-            options={[ServiceFilters.Interior, ServiceFilters.Exterior]}
-            onChange={e => this.handlePrimaryFilterChange(e)}
-          ></SelectButton>
-        </span>
-        <span className="filtersRow">
-          <SelectButton
-            value={secondaryServiceFilterValue}
-            options={
-              primaryServiceFilterValue === ServiceFilters.Interior.value
-                ? ServiceFilters.Interior.subFilters
-                : ServiceFilters.Exterior.subFilters
-            }
-            onChange={e => this.handleSecondaryFilterChange(e)}
-          ></SelectButton>
-        </span>
-        <span className="itemCarousel">
-          <Carousel
-            value={servicesOffered}
-            itemTemplate={this.itemTemplate}
-            numVisible={5}
-            numScroll={1}
-            autoplayInterval={3000}
-          ></Carousel>
-        </span>
-      </div>
-    );
-  }
-
-  itemTemplate = listItem => {
-    return <ListingComponent listItem={listItem} type={ListItemTypes.Service} />;
+  const addToCart = val => {
+    addItem(val);
+    toastMsg('Added to Cart', false);
   };
 
-  handlePrimaryFilterChange = e => {
-    let secondaryServiceFilterValue =
-      e.value === ServiceFilters.Interior.value
-        ? ServiceFilters.Interior.subFilters[0].value
-        : ServiceFilters.Exterior.subFilters[0].value;
-    this.setState({
-      primaryServiceFilterValue: e.value,
-      secondaryServiceFilterValue: secondaryServiceFilterValue,
-    });
+  const handlePrimaryFilterChange = e => {
+    setState({ primaryServiceFilterValue: e.value });
   };
+  let store = useStore();
 
-  handleSecondaryFilterChange = e => {
-    this.setState({ secondaryServiceFilterValue: e.value });
-  };
-}
+  useEffect(() => {
+    if (state.primaryServiceFilterValue === 'Handyman') {
+      store.getServices(9);
+    } else if (state.primaryServiceFilterValue === 'Moving') {
+      store.getServices(10);
+    } else if (state.primaryServiceFilterValue === 'Furniture Assembly') {
+      store.getServices(11);
+    } else if (state.primaryServiceFilterValue === 'Mounting & Installation') {
+      store.getServices(12);
+    } else if (state.primaryServiceFilterValue === 'Cleaning') {
+      store.getServices(13);
+    } else if (state.primaryServiceFilterValue === 'Yardwork Services') {
+      store.getServices(14);
+    }
+  }, [state.primaryServiceFilterValue]);
+
+  useEffect(() => {
+    setState({ servicesOffered: store.serviceData });
+  }, [store.serviceData]);
+
+  return (
+    <div className="productsPage">
+      <span className="filtersRow">
+        <SelectButton
+          value={state.primaryServiceFilterValue}
+          options={ServiceFilters}
+          onChange={e => handlePrimaryFilterChange(e)}
+        ></SelectButton>
+      </span>
+      <span className="itemCarousel">
+        <div className="grid">
+          {state.servicesOffered && state.servicesOffered.length > 0
+            ? state.servicesOffered.map(listItem => {
+                return (
+                  <div className="col-3" key={listItem.id}>
+                    <ListingComponent
+                      listItem={listItem}
+                      type={ListItemTypes.Service}
+                      addToCart={addToCart}
+                    />
+                  </div>
+                );
+              })
+            : ''}
+        </div>
+      </span>
+    </div>
+  );
+};
 
 export default ServicesPage;

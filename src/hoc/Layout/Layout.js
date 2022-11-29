@@ -2,7 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom';
 import Loader from 'components/UI/loader/Loader';
 //layout components
-import Header from './components/Header/Header';
+import { Header } from './components/Header/Header';
 import { Footer } from './components/Footer/Footer';
 
 const Layout = props => {
