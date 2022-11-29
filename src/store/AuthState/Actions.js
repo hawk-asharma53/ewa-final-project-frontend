@@ -4,17 +4,18 @@ import storage from 'utility/storage';
 import { toastMsg } from 'utility/utility';
 
 export const Actions = set => ({
-  signUp: async values => {
+  signUp: async (values, callback) => {
     set({ isLoading: true });
     await AUTHAPI.signup(values)
       .then(res => {
         console.log(res);
-        toastMsg(`${res?.data?.error?.message}`, true);
-        toastMsg(`${res?.data?.message}`, false);
+        toastMsg(`${res?.data?.data?.message}`, false);
+        callback(true);
       })
       .catch(error => {
         console.log(error);
         toastMsg(`${error?.data?.error?.message}`, true);
+        callback(false);
       });
   },
   login: async values => {

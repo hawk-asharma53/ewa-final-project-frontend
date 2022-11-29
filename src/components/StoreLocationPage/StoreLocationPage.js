@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
+import {
+  GoogleMap,
+  LoadScript,
+  Marker,
+  InfoWindow,
+} from '@react-google-maps/api';
 import { InputText } from 'primereact/inputtext';
 import { Card } from 'primereact/card';
 import { Button } from 'primereact/button';
 import useStore from 'store/AuthState';
-
 const containerStyle = {
   width: '100%',
   height: '800px',
@@ -16,11 +20,20 @@ const center = {
 };
 
 const StoreLocationPage = () => {
-  const [inputVal, setInputVal] = useState('');
+  const [state, setState] = useState({ inputVal: '', lat: 0, lng: 0 });
   let store = useStore();
   useEffect(() => {
     store.getStores();
   }, []);
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(position => {
+      setState({
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+      });
+    });
+  }
 
   return (
     <div className="flex flex-row mt-4">
@@ -31,10 +44,10 @@ const StoreLocationPage = () => {
         <div className="grid">
           <div className="col-12">
             <span className="p-input-icon-left w-12">
-              <i className="pi pi-search w-12" />
+              <i className="pi pi-search" />
               <InputText
-                value={inputVal}
-                onChange={e => setInputVal(e.target.value)}
+                value={state.inputVal}
+                onChange={e => setState({ inputVal: e.target.value })}
                 placeholder="Search"
                 className="w-12"
               />
@@ -42,7 +55,9 @@ const StoreLocationPage = () => {
           </div>
           {store.storesData &&
             store.storesData
-              .filter(x => (inputVal ? x.address.includes(inputVal) : x))
+              .filter(x =>
+                state.inputVal ? x.address.includes(state.inputVal) : x,
+              )
               .map(e => {
                 return (
                   <div className="col-12" key={e.id}>
@@ -68,7 +83,9 @@ const StoreLocationPage = () => {
             <></>
             {store.storesData &&
               store.storesData
-                .filter(x => (inputVal ? x.address.includes(inputVal) : x))
+                .filter(x =>
+                  state.inputVal ? x.address.includes(state.inputVal) : x,
+                )
                 .map(e => {
                   return (
                     <Marker
@@ -80,6 +97,11 @@ const StoreLocationPage = () => {
                     />
                   );
                 })}
+            {state.lat && state.lng && (
+              <InfoWindow position={{ lat: state.lat, lng: state.lng }}>
+                <div>You are here</div>
+              </InfoWindow>
+            )}
           </GoogleMap>
         </LoadScript>
       </div>

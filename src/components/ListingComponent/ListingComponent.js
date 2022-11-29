@@ -17,43 +17,37 @@ class ListingComponent extends Component {
     const { listItem, type } = this.props;
     if (type === ListItemTypes.Service) {
       return (
-        <span className="listCard">
-          <Card
-            title={listItem.title}
-            subTitle={listItem.subcategory}
-            footer={<Button label="View Details" />}
-            header={
-              listItem.image !== '' && (
-                <img
-                  alt="service"
-                  className="item-image"
-                  src={listItem.image}
-                />
-              )
-            }
-          >
-            {'Charged at $' + listItem.price + '/hour'}
-          </Card>
-        </span>
+        <Card
+          className="listCard"
+          title={listItem.title}
+          subTitle={listItem.subcategory}
+          footer={<Button label="View Details" />}
+          header={
+            listItem.image !== '' && (
+              <img alt="service" className="item-image" src={listItem.image} />
+            )
+          }
+        >
+          {'Charged at $' + listItem.price + '/hour'}
+        </Card>
       );
     } else if (type === ListItemTypes.Product) {
       return (
-        <span className="listCard">
-          <Card
-            title={listItem.title}
-            subTitle={listItem.subcategory}
-            footer={<Button label="View Details" />}
-            header={
-              <img
-                alt="productImage"
-                className="item-image"
-                src={listItem.image}
-              />
-            }
-          >
-            {'Available for $' + listItem.price}
-          </Card>
-        </span>
+        <Card
+          className="listCard"
+          title={listItem.title}
+          subTitle={listItem.subcategory}
+          footer={<Button label="View Details" />}
+          header={
+            <img
+              alt="productImage"
+              className="item-image"
+              src={listItem.image}
+            />
+          }
+        >
+          {'Available for $' + listItem.price}
+        </Card>
       );
     }
   }
