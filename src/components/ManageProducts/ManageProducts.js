@@ -11,7 +11,8 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import { RadioButton } from 'primereact/radiobutton';
 import { InputNumber } from 'primereact/inputnumber';
 import { Dropdown } from 'primereact/dropdown';
-import { addProduct } from 'api/dataAPI';
+import { addProduct, updateProduct } from 'api/dataAPI';
+import { InputSwitch } from 'primereact/inputswitch';
 
 export const ManageProductsPage = () => {
     const categories = [
@@ -23,6 +24,11 @@ export const ManageProductsPage = () => {
         {name: 'Wall Stickers & Coverings', code: 6},
         {name: 'Window & Window Supplies', code: 7},
         {name: 'Bathroom Renovation', code: 8},
+    ];
+
+    const isActive = [
+      {name: 'Yes', code: 1},
+      {name: 'No', code: 2}
     ];
   
     let emptyProduct = {
@@ -57,6 +63,10 @@ export const ManageProductsPage = () => {
 
   const categoryBodyTemplate = rowData => {
     return getProductCategory(rowData.categoryid);
+  };
+
+  const isActiveBodyTemplate = rowData => {
+    return rowData.isActive == 1 ? 'Yes' : 'No';
   };
 
   const leftToolbarTemplate = () => {
@@ -109,39 +119,19 @@ export const ManageProductsPage = () => {
           className="p-button-rounded mr-2"
           onClick={() => editProduct(rowData)}
         />
-        <Button
+        {/* <Button
           icon="pi pi-trash"
           className="p-button-rounded p-button-danger"
           onClick={() => confirmDeleteProduct(rowData)}
-        />
+        /> */}
       </React.Fragment>
     );
   };
 
   const editProduct = product => {
+    console.log(product);
     setProduct({ ...product });
     setProductDialog(true);
-  };
-
-  const confirmDeleteProduct = product => {
-    setProduct(product);
-    setDeleteProductDialog(true);
-  };
-
-  const deleteProductDialogFooter = () => { return  (
-    <React.Fragment>
-      {/* <Button label="No" icon="pi pi-times" className="p-button-text" onClick={hideDeleteProductDialog} /> */}
-      <Button
-        label="Yes"
-        icon="pi pi-check"
-        className="p-button-text"
-        onClick={deleteProduct}
-      />
-    </React.Fragment>
-  );}
-
-  const hideDeleteProductDialog = () => {
-    setDeleteProductDialog(false);
   };
 
   const productDialogFooter = () => { return (
@@ -165,14 +155,15 @@ export const ManageProductsPage = () => {
     setSubmitted(false);
     setProductDialog(false);
   };
-  const deleteProduct = () => {
-    //TODO : Delete action
-  };
 
   const saveProduct = async () => {
     setSubmitted(true);
-    // console.log(product)
-    await addProduct( product )
+    console.log(product)
+    if (product.id == null) {
+      await addProduct( product )
+    } else {
+      await updateProduct( product )
+    }
     store.getAllProducts();
     setProductDialog(false);
     setProduct(emptyProduct);
@@ -189,6 +180,12 @@ export const ManageProductsPage = () => {
   const onPriceChange = (e) => {
     let _product = { ...product };
     _product[`price`] = e;
+    setProduct(_product);
+  };
+  
+  const setIsActive = (e) => {
+    let _product = { ...product };
+    _product[`isActive`] = e;
     setProduct(_product);
   };
 
@@ -227,6 +224,7 @@ export const ManageProductsPage = () => {
             <Column body={categoryBodyTemplate} header="Category"></Column>
             <Column field="price" header="Price"></Column>
             <Column field="rating" header="Rating"></Column>
+            <Column body={isActiveBodyTemplate} header="Is Active"></Column>
             <Column body={actionBodyTemplate} exportable={false}></Column>
           </DataTable>
         ) : (
@@ -247,7 +245,7 @@ export const ManageProductsPage = () => {
           <label htmlFor="title">Title</label>
           <InputText
             id="title"
-            value={product.name}
+            value={product.title}
             onChange={e => onInputChange(e, 'title')}
             required
             autoFocus
@@ -269,7 +267,7 @@ export const ManageProductsPage = () => {
           <label htmlFor="image">Image</label>
           <InputText
             id="image"
-            value={product.name}
+            value={product.image}
             onChange={e => onInputChange(e, 'image')}
           />
         </div>
@@ -277,33 +275,16 @@ export const ManageProductsPage = () => {
           <label htmlFor="price">Price</label>
           <InputNumber
             id="price"
-            value={product.name}
+            value={product.price}
             onChange={e => onPriceChange(e.value)}
             minFractionDigits={2}
             required
           />
           {submitted && !product.price && <small className="p-error">Price is required.</small>}
         </div>
-      </Dialog>
-
-      <Dialog
-        visible={deleteProductDialog}
-        style={{ width: '450px' }}
-        header="Confirm"
-        modal
-        footer={deleteProductDialogFooter}
-        onHide={hideDeleteProductDialog}
-      >
-        <div className="confirmation-content">
-          <i
-            className="pi pi-exclamation-triangle mr-3"
-            style={{ fontSize: '2rem' }}
-          />
-          {product && (
-            <span>
-              Are you sure you want to delete <b>{product.name}</b>?
-            </span>
-          )}
+        <div className="field">
+          <label htmlFor="isActive">Is Active</label>
+          <InputSwitch  trueValue={1} falseValue={0} checked={product.isActive} onChange={(e) => setIsActive(e.value)} />
         </div>
       </Dialog>
     </div>
