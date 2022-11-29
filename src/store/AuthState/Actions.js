@@ -1,5 +1,6 @@
 import * as AUTHAPI from 'api/authAPI';
 import * as DATAAPI from 'api/dataAPI';
+import { routes } from 'utility/constants';
 import storage from 'utility/storage';
 import { toastMsg } from 'utility/utility';
 
@@ -58,11 +59,13 @@ export const Actions = set => ({
         console.log(error, 'EERROR');
       });
   },
-  placeOrder: async order => {
+  placeOrder: async (order, emptyCart, history) => {
     await DATAAPI.placeOrder(order)
       .then(res => {
         console.log(res);
+        emptyCart();
         toastMsg(`Order successfully placed`, false);
+        history.push(routes.PRODUCTS);
       })
       .catch(error => {
         console.log(error, 'EERROR');

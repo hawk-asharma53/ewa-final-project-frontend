@@ -6,9 +6,9 @@ import { Dropdown } from 'primereact/dropdown';
 import { useCart } from 'react-use-cart';
 import useStore from 'store/AuthState';
 import { addAddress } from 'api/dataAPI';
+import { useHistory } from 'react-router';
 
 const CheckoutPage = () => {
-  const [value2, setValue2] = useState('');
   const [stores, setStores] = useState([]);
 
   const [checked, setChecked] = useState({
@@ -16,6 +16,7 @@ const CheckoutPage = () => {
     delivery: true,
   });
 
+  let history = useHistory();
   let zstore = useStore();
 
   useEffect(() => {
@@ -32,7 +33,7 @@ const CheckoutPage = () => {
     }
   }, [zstore.storesData]);
 
-  const { cartTotal, items } = useCart();
+  const { cartTotal, items, emptyCart } = useCart();
   const [form, setForm] = useState({
     address1: '',
     address2: '',
@@ -84,7 +85,7 @@ const CheckoutPage = () => {
               address: response?.data?.data,
               orderItems: orders,
             };
-            zstore.placeOrder(data);
+            zstore.placeOrder(data, emptyCart, history);
           }
         })
         .catch(function (error) {
