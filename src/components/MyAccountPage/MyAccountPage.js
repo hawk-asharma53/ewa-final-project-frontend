@@ -26,6 +26,15 @@ const MyAccountPage = () => {
             placeholder="email@example.com"
           />
         </div>
+        <label for="email">Address</label>
+        <div class="rowMyAccount">
+          <input
+            type="email"
+            name="email"
+            autocomplete="off"
+            placeholder="Chicago"
+          />
+        </div>
         <label for="password">Password</label>
         <div class="rowMyAccount">
           <input type="password" placeholder="*********" name="password" />
