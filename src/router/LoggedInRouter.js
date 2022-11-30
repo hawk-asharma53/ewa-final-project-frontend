@@ -10,6 +10,7 @@ import HomePage from 'components/HomePage/HomePage';
 import StoreLocationPage from 'components/StoreLocationPage/StoreLocationPage';
 import Cart from 'components/Cart/Cart';
 import { ManageProductsPage } from 'components/ManageProducts/ManageProducts';
+import { ManageServicesPage } from 'components/ManageServices/ManageService';
 
 export default () => {
   return (
@@ -23,6 +24,7 @@ export default () => {
       <Route exact path={routes.DASHBOARD} component={Dashboard} />
       <Route exact path={routes.MAP} component={StoreLocationPage} />
       <Route exact path={routes.MANAGE_PRODUCTS} component={ManageProductsPage} />
+      <Route exact path={routes.MANAGE_SERVICES} component={ManageServicesPage} />
       <Route exact path="*" component={() => <Redirect to={routes.ROOT} />} />
     </Switch>
   );

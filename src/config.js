@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export const Base_URL = () => {
-  let url = 'http://localhost:3001/api';
+  let url = 'http://34.66.75.54:3001/api';
   return url;
 };
 

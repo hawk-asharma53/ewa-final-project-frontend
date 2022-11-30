@@ -21,3 +21,7 @@ const serviceCategories = [
 export function getProductCategory( categoryid ) {
     return productCategories[categoryid-1];
 }
+
+export function getServiceCategory( categoryid ) {
+    return serviceCategories[categoryid-8];
+}
