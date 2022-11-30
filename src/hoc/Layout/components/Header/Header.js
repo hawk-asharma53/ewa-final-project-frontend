@@ -67,6 +67,9 @@ export const Header = () => {
               <Link to={routes.CART} className="nav-link">
                 Cart ({totalUniqueItems})
               </Link>
+              <Link to={routes.ORDERS} className="nav-link">
+                Orders
+              </Link>
               <a
                 className="nav-link"
                 style={{ cursor: 'pointer' }}

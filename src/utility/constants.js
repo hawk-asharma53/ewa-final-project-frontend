@@ -10,6 +10,7 @@ export const routes = {
   DASHBOARD: '/dashboard',
   MAP: '/stores',
   CART: '/cart',
+  ORDERS: '/orders',
   MANAGE_PRODUCTS: '/manage-products',
   MANAGE_SERVICES: '/manage-services'
 };

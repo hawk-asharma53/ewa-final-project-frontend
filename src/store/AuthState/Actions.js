@@ -77,6 +77,24 @@ export const Actions = set => ({
         console.log(error, 'EERROR');
       });
   },
+  getStoresById: async (storeIdArray, callback) => {
+    await DATAAPI.getStoresById(storeIdArray)
+      .then(res => {
+        callback(res?.data?.data);
+      })
+      .catch(error => {
+        console.log(error, 'EERROR');
+      });
+  },
+  getAddressesById: async (addressIdArray, callback) => {
+    await DATAAPI.getAddressById(addressIdArray)
+      .then(res => {
+        callback(res?.data?.data);
+      })
+      .catch(error => {
+        console.log(error, 'EERROR');
+      });
+  },
   placeOrder: async (order, emptyCart, history) => {
     await DATAAPI.placeOrder(order)
       .then(res => {
@@ -95,5 +113,42 @@ export const Actions = set => ({
     set({
       userData: {},
     });
+  },
+  getOrdersUserId: async userId => {
+    await DATAAPI.getOrdersUserId(userId)
+      .then(res => {
+        set({ userOrdersData: res?.data?.data });
+      })
+      .catch(error => {
+        console.log(error, 'EERROR');
+      });
+  },
+  getOrdersStoreId: async storeId => {
+    await DATAAPI.getOrdersStoreId(storeId)
+      .then(res => {
+        set({ userOrdersData: res?.data?.data });
+      })
+      .catch(error => {
+        console.log(error, 'EERROR');
+      });
+  },
+  getUsersById: async (userIdsArray, callback) => {
+    await DATAAPI.getUsersById(userIdsArray)
+      .then(res => {
+        callback(res?.data?.data);
+      })
+      .catch(error => {
+        console.log(error, 'EERROR');
+      });
+  },
+  updateOrderStatus: async (orderId, status, callback) => {
+    await DATAAPI.updateOrderStatus(orderId, status)
+      .then(res => {
+        console.log('res', res);
+        callback(res?.data?.data);
+      })
+      .catch(error => {
+        console.log(error, 'EERROR');
+      });
   },
 });
