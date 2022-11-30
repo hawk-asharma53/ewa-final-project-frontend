@@ -36,3 +36,5 @@ export const getOrdersUserId = userId => axios.get(`/orderByUser/${userId}`);
 
 export const getOrdersStoreId = storeId =>
   axios.get(`/orderByStore/${storeId}`);
+
+export const addReview = review => axios.post('/review', review);

@@ -6,6 +6,7 @@ import ProductsPage from 'components/ProductsPage/ProductsPage';
 import ServicesPage from 'components/ServicesPage/ServicesPage';
 import Signup from 'components/Signup/Signup';
 import StoreLocationPage from 'components/StoreLocationPage/StoreLocationPage';
+import { ProductDetailsPage } from 'components/ProductDetailsPage/ProductDetailsPage';
 import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import HomePage from '../components/HomePage/HomePage';
@@ -24,6 +25,11 @@ export default () => {
       <Route exact path={routes.SERVICES} component={ServicesPage} />
       <Route exact path={routes.ABOUT} component={HomePage} />
       <Route exact path={routes.MAP} component={StoreLocationPage} />
+      <Route
+        exact
+        path={routes.PRODUCT_DETAILS}
+        component={ProductDetailsPage}
+      />
       <Route exact path="*" component={() => <Redirect to={routes.ROOT} />} />
     </Switch>
   );

@@ -13,7 +13,9 @@ export const routes = {
   CART: '/cart',
   ORDERS: '/orders',
   MANAGE_PRODUCTS: '/manage-products',
-  MANAGE_SERVICES: '/manage-services'
+  MANAGE_SERVICES: '/manage-services',
+  WRITE_REVIEW: '/write-review',
+  PRODUCT_DETAILS: '/details',
 };
 
 export const ServiceFilters = [

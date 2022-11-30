@@ -179,4 +179,17 @@ export const Actions = set => ({
         console.log(error, 'EERROR');
       });
   },
+  addReview: async (review, callback) => {
+    await DATAAPI.addReview(review)
+      .then(res => {
+        console.log('res', res);
+        toastMsg('Submitted the review', false);
+        callback(true);
+      })
+      .catch(error => {
+        console.log(error, 'EERROR');
+        toastMsg('Failed to submit the review', true);
+        callback(false);
+      });
+  },
 });

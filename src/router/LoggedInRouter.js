@@ -12,6 +12,8 @@ import Cart from 'components/Cart/Cart';
 import { ManageProductsPage } from 'components/ManageProducts/ManageProducts';
 import { ManageServicesPage } from 'components/ManageServices/ManageService';
 import { OrdersPage } from 'components/OrdersPage/OrdersPage';
+import { ProductDetailsPage } from 'components/ProductDetailsPage/ProductDetailsPage';
+import { WriteReviewPage } from 'components/WriteReviewPage/WriteReviewPage';
 import MyAccountPage from 'components/MyAccountPage/MyAccountPage';
 
 export default () => {
@@ -25,6 +27,12 @@ export default () => {
       <Route exact path={routes.CHECKOUT} component={CheckoutPage} />
       <Route exact path={routes.DASHBOARD} component={Dashboard} />
       <Route exact path={routes.MAP} component={StoreLocationPage} />
+      <Route exact path={routes.WRITE_REVIEW} component={WriteReviewPage} />
+      <Route
+        exact
+        path={routes.PRODUCT_DETAILS}
+        component={ProductDetailsPage}
+      />
       <Route
         exact
         path={routes.MANAGE_PRODUCTS}
