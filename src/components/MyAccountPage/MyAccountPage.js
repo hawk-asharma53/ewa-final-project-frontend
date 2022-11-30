@@ -1,52 +1,101 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { routes } from 'utility/constants';
+import { Formik, Form, Field } from 'formik';
 import '../Login/Login';
+import { validateUpdateProfileForm } from 'utility/formValidation';
+import useStore from 'store/AuthState';
 
 const MyAccountPage = () => {
+  const store = useStore();
+
+  let initialValues = {
+    email: store?.userData.user_email,
+    user_first_name: store?.userData.user_first_name,
+    user_last_name: store?.userData.user_last_name,
+  };
+
+  const handleSubmit = values => {
+    console.log(values, 'Form Submitted');
+    store.updateUserProfile(
+      { ...values },
+      store?.userData?.user_id,
+      success => {
+        if (success) {
+          store.refreshUserProfile(store?.userData?.user_id);
+        }
+      },
+    );
+  };
+
   return (
     <div className="login">
-      <form className="formClass" style={{ maxWidth: '1100px' }}>
-        <h3 style={{ marginBottom: '25px' }}>My Account</h3>
-        <label for="email">Name</label>
-        <div class="rowMyAccount">
-          <input
-            type="text"
-            name="name"
-            autocomplete="off"
-            placeholder="John"
-          />
-        </div>
-        <label for="email">Email</label>
-        <div class="rowMyAccount">
-          <input
-            type="email"
-            name="email"
-            autocomplete="off"
-            placeholder="email@example.com"
-          />
-        </div>
-        <label for="email">Address</label>
-        <div class="rowMyAccount">
-          <input
-            type="email"
-            name="email"
-            autocomplete="off"
-            placeholder="Chicago"
-          />
-        </div>
-        <label for="password">Password</label>
-        <div class="rowMyAccount">
-          <input type="password" placeholder="*********" name="password" />
-        </div>
-        <label for="password">Confirm Password</label>
-        <div class="rowMyAccount">
-          <input type="password" placeholder="*********" name="password" />
-        </div>
-        <button className="buttonClass" type="submit">
-          Update Profile
-        </button>
-      </form>
+      <Formik
+        initialValues={initialValues}
+        onSubmit={values => handleSubmit(values)}
+        validationSchema={validateUpdateProfileForm}
+      >
+        {({ errors, touched }) => {
+          return (
+            <Form className="formClass">
+              <div className="rowLogin">
+                <label for="user_first_name">First Name</label>
+                <Field
+                  type="text"
+                  placeholder="John"
+                  id="user_first_name"
+                  name="user_first_name"
+                />
+                <span>
+                  {errors.user_first_name && touched.user_first_name
+                    ? errors.user_first_name
+                    : null}
+                </span>
+              </div>
+              <div className="rowLogin">
+                <label for="user_last_name">Last Name</label>
+                <Field
+                  type="text"
+                  placeholder="Doe"
+                  id="user_last_name"
+                  name="user_last_name"
+                />
+                <span>
+                  {errors.user_last_name && touched.user_last_name
+                    ? errors.user_last_name
+                    : null}
+                </span>
+              </div>
+
+              <div className="rowLogin">
+                <label for="email">Email</label>
+                <Field
+                  type="email"
+                  placeholder="johndoe@email.com"
+                  id="user_email"
+                  name="email"
+                />
+                <span>
+                  {errors.email && touched.email ? errors.email : null}
+                </span>
+              </div>
+              {/* <div className="rowLogin">
+                <label for="password">Password</label>
+                <Field
+                  type="password"
+                  placeholder="Password"
+                  id="password"
+                  name="password"
+                />
+                <span>
+                  {errors.password && touched.password ? errors.password : null}
+                </span>
+              </div> */}
+              <button className="buttonClass" type="submit">
+                Update Profile
+              </button>
+            </Form>
+          );
+        }}
+      </Formik>
     </div>
   );
 };

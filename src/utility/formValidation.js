@@ -23,3 +23,12 @@ export const validateLoginForm = Yup.object().shape({
     .required('This field is required')
     .nullable(),
 });
+
+export const validateUpdateProfileForm = Yup.object().shape({
+  email: Yup.string()
+    .email('Please Enter a Valid Email')
+    .required('This field is required')
+    .nullable(),
+  user_first_name: Yup.string().required('This field is required').nullable(),
+  user_last_name: Yup.string().required('This field is required').nullable(),
+});

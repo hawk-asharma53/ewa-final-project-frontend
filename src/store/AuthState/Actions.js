@@ -33,6 +33,33 @@ export const Actions = set => ({
         // toastMsg(`${error?.error?.message}`, true);
       });
   },
+  updateUserProfile: async (values, userId, callback) => {
+    await AUTHAPI.updateUserProfile(values, userId)
+      .then(res => {
+        console.log(res);
+        callback(true);
+        toastMsg(`${res?.data?.data?.message}`, false);
+      })
+      .catch(error => {
+        console.log(error);
+        toastMsg(`${error?.data?.error?.message}`, true);
+        callback(false);
+      });
+  },
+  refreshUserProfile: async values => {
+    await AUTHAPI.refreshUserProfile(values)
+      .then(res => {
+        set({
+          userData: res?.data?.data?.user,
+        });
+        storage.set('userData', res?.data?.data?.user);
+        toastMsg(res?.data?.data?.message, false);
+      })
+      .catch(error => {
+        console.log(error, 'EERROR');
+        // toastMsg(`${error?.error?.message}`, true);
+      });
+  },
   getProducts: async id => {
     await DATAAPI.getProducts(id)
       .then(res => {

@@ -70,6 +70,9 @@ export const Header = () => {
               <Link to={routes.ORDERS} className="nav-link">
                 Orders
               </Link>
+              <Link to={routes.MYACCOUNT} className="nav-link">
+                {store?.userData?.user_first_name}'s Account
+              </Link>
               <a
                 className="nav-link"
                 style={{ cursor: 'pointer' }}
