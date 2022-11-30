@@ -36,3 +36,8 @@ export const getOrdersUserId = userId => axios.get(`/orderByUser/${userId}`);
 
 export const getOrdersStoreId = storeId =>
   axios.get(`/orderByStore/${storeId}`);
+
+export const getDashboardData = () => axios.get(`/dashboard`);
+export const getProductCount = () => axios.get(`/productCount`);
+export const getServiceCount = () => axios.get(`/serviceCount`);
+export const getWeekelyRevenue = () => axios.get(`/weekelyRevenue`);
