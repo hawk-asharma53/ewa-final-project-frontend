@@ -10,7 +10,9 @@ export const Header = () => {
   const [state, setState] = React.useState({ activeTabIndex: 0 });
   const history = useHistory();
   const store = useStore();
-  const isCustomer = store?.userData?.user_type === 'customer';
+  const showAdminHeader =
+    store?.userData?.user_type === 'admin' ||
+    store?.userData?.user_type === 'manager';
 
   const { totalUniqueItems } = useCart();
 
@@ -84,17 +86,19 @@ export const Header = () => {
     <header className="site-navbar site-navbar-target bg-white" role="banner">
       <div className="headerParentContainer">
         <TabMenu
-          model={isCustomer ? customerItems : adminItems}
+          model={showAdminHeader ? adminItems : customerItems}
           activeIndex={state.activeTabIndex}
           onTabChange={e =>
-            isCustomer ? handleCustomerTabChanged(e) : handleAdminTabChanged(e)
+            showAdminHeader
+              ? handleAdminTabChanged(e)
+              : handleCustomerTabChanged(e)
           }
         />
         <div className="site-logo">HomeVerse</div>
         <div className="loginLink">
           {store?.userData?.user_id ? (
             <>
-              {isCustomer && (
+              {!showAdminHeader && (
                 <Link to={routes.CART} className="nav-link">
                   Cart ({totalUniqueItems})
                 </Link>
