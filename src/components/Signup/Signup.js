@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Formik, Form, Field } from 'formik';
 import { routes } from 'utility/constants';
 import '../Login/login.css';
@@ -8,6 +8,7 @@ import { validateSignupForm } from 'utility/formValidation';
 
 const Signup = () => {
   const store = useStore();
+  const history = useHistory();
 
   let initialValues = {
     email: '',
@@ -19,7 +20,11 @@ const Signup = () => {
 
   const handleSubmit = values => {
     console.log(values, 'Form Submitted');
-    store.signUp({ ...values });
+    store.signUp({ ...values }, success => {
+      if (success) {
+        history.push('/login');
+      }
+    });
   };
 
   return (

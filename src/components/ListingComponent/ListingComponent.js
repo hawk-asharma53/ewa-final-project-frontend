@@ -17,47 +17,41 @@ class ListingComponent extends Component {
     const { listItem, type, addToCart } = this.props;
     if (type === ListItemTypes.Service) {
       return (
-        <span className="listCard">
-          <Card
-            title={listItem.title}
-            subTitle={listItem.subcategory}
-            footer={
-              <Button onClick={() => addToCart(listItem)} label="Add to Cart" />
-            }
-            header={
-              listItem.image !== '' && (
-                <img
-                  alt="service"
-                  className="item-image"
-                  src={listItem.image}
-                />
-              )
-            }
-          >
-            {'Charged at $' + listItem.price + '/hour'}
-          </Card>
-        </span>
+        <Card
+          className="listCard"
+          title={listItem.title}
+          subTitle={listItem.subcategory}
+          footer={
+            <Button onClick={() => addToCart(listItem)} label="Add to Cart" />
+          }
+          header={
+            listItem.image !== '' && (
+              <img alt="service" className="item-image" src={listItem.image} />
+            )
+          }
+        >
+          {'Charged at $' + listItem.price + '/hour'}
+        </Card>
       );
     } else if (type === ListItemTypes.Product) {
       return (
-        <span className="listCard">
-          <Card
-            title={listItem.title}
-            subTitle={listItem.subcategory}
-            footer={
-              <Button onClick={() => addToCart(listItem)} label="Add to Cart" />
-            }
-            header={
-              <img
-                alt="productImage"
-                className="item-image"
-                src={listItem.image}
-              />
-            }
-          >
-            {'Available for $' + listItem.price}
-          </Card>
-        </span>
+        <Card
+          className="listCard"
+          title={listItem.title}
+          subTitle={listItem.subcategory}
+          footer={
+            <Button onClick={() => addToCart(listItem)} label="Add to Cart" />
+          }
+          header={
+            <img
+              alt="productImage"
+              className="item-image"
+              src={listItem.image}
+            />
+          }
+        >
+          {'Available for $' + listItem.price}
+        </Card>
       );
     }
   }
