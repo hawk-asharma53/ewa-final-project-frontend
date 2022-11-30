@@ -20,7 +20,8 @@ const center = {
 };
 
 const StoreLocationPage = () => {
-  const [state, setState] = useState({ inputVal: '', lat: 0, lng: 0 });
+  const [inputVal, setInputVal] = useState('');
+  const [coords, setCoords] = useState({ lat: 0, lng: 0 });
   let store = useStore();
   useEffect(() => {
     store.getStores();
@@ -28,7 +29,7 @@ const StoreLocationPage = () => {
 
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(position => {
-      setState({
+      setCoords({
         lat: position.coords.latitude,
         lng: position.coords.longitude,
       });
@@ -46,8 +47,8 @@ const StoreLocationPage = () => {
             <span className="p-input-icon-left w-12">
               <i className="pi pi-search" />
               <InputText
-                value={state.inputVal}
-                onChange={e => setState({ inputVal: e.target.value })}
+                value={inputVal}
+                onChange={e => setInputVal(e.target.value)}
                 placeholder="Search"
                 className="w-12"
               />
@@ -55,9 +56,7 @@ const StoreLocationPage = () => {
           </div>
           {store.storesData &&
             store.storesData
-              .filter(x =>
-                state.inputVal ? x.address.includes(state.inputVal) : x,
-              )
+              .filter(x => (inputVal ? x.address.includes(inputVal) : x))
               .map(e => {
                 return (
                   <div className="col-12" key={e.id}>
@@ -83,9 +82,7 @@ const StoreLocationPage = () => {
             <></>
             {store.storesData &&
               store.storesData
-                .filter(x =>
-                  state.inputVal ? x.address.includes(state.inputVal) : x,
-                )
+                .filter(x => (inputVal ? x.address.includes(inputVal) : x))
                 .map(e => {
                   return (
                     <Marker
@@ -97,8 +94,8 @@ const StoreLocationPage = () => {
                     />
                   );
                 })}
-            {state.lat && state.lng && (
-              <InfoWindow position={{ lat: state.lat, lng: state.lng }}>
+            {coords.lat && coords.lng && (
+              <InfoWindow position={{ lat: coords.lat, lng: coords.lng }}>
                 <div>You are here</div>
               </InfoWindow>
             )}
