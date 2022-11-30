@@ -10,10 +10,11 @@ export const Header = () => {
   const [state, setState] = React.useState({ activeTabIndex: 0 });
   const history = useHistory();
   const store = useStore();
+  const isCustomer = store?.userData?.user_type === 'customer';
 
   const { totalUniqueItems } = useCart();
 
-  const items = [
+  const customerItems = [
     { label: 'Home' },
     { label: 'Products' },
     { label: 'Services' },
@@ -21,7 +22,14 @@ export const Header = () => {
     { label: 'About' },
   ];
 
-  const handleTabChanged = e => {
+  const adminItems = [
+    { label: 'Dashboard' },
+    { label: 'Manage Products' },
+    { label: 'Manage Services' },
+    { label: 'Manage Stores' },
+  ];
+
+  const handleCustomerTabChanged = e => {
     setState({ activeTabIndex: e.index });
     switch (e.index) {
       case 0:
@@ -44,6 +52,26 @@ export const Header = () => {
     }
   };
 
+  const handleAdminTabChanged = e => {
+    setState({ activeTabIndex: e.index });
+    switch (e.index) {
+      case 0:
+        navigateToPage(routes.DASHBOARD);
+        break;
+      case 1:
+        navigateToPage(routes.MANAGE_PRODUCTS);
+        break;
+      case 2:
+        navigateToPage(routes.MANAGE_SERVICES);
+        break;
+      case 3:
+        navigateToPage(routes.MAP);
+        break;
+      default:
+        console.log(e.index);
+    }
+  };
+
   const navigateToPage = path => {
     history.push(path);
   };
@@ -56,17 +84,21 @@ export const Header = () => {
     <header className="site-navbar site-navbar-target bg-white" role="banner">
       <div className="headerParentContainer">
         <TabMenu
-          model={items}
+          model={isCustomer ? customerItems : adminItems}
           activeIndex={state.activeTabIndex}
-          onTabChange={e => handleTabChanged(e)}
+          onTabChange={e =>
+            isCustomer ? handleCustomerTabChanged(e) : handleAdminTabChanged(e)
+          }
         />
         <div className="site-logo">HomeVerse</div>
         <div className="loginLink">
           {store?.userData?.user_id ? (
             <>
-              <Link to={routes.CART} className="nav-link">
-                Cart ({totalUniqueItems})
-              </Link>
+              {isCustomer && (
+                <Link to={routes.CART} className="nav-link">
+                  Cart ({totalUniqueItems})
+                </Link>
+              )}
               <Link to={routes.ORDERS} className="nav-link">
                 Orders
               </Link>
