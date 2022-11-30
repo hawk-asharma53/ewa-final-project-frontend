@@ -14,15 +14,13 @@ const containerStyle = {
   height: '800px',
 };
 
-const center = {
-  lng: -87.623177,
-  lat: 41.881832,
-};
+const center = { lat: 41.88205, lng: -87.627826 };
 
 const StoreLocationPage = () => {
   const [inputVal, setInputVal] = useState('');
-  const [coords, setCoords] = useState({ lat: 0, lng: 0 });
-  let store = useStore();
+  const [coords, setCoords] = useState({ lat: 41.88205, lng: -87.627826 });
+  const [storesData, setStoresData] = useState([]);
+  const store = useStore();
   useEffect(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
@@ -37,6 +35,10 @@ const StoreLocationPage = () => {
       });
     }
   }, [navigator.geolocation]);
+
+  useEffect(() => {
+    setStoresData(store.storesData);
+  }, [store.storesData]);
 
   return (
     <div className="flex flex-row mt-4">
@@ -56,21 +58,20 @@ const StoreLocationPage = () => {
               />
             </span>
           </div>
-          {store.storesData &&
-            store.storesData
-              .filter(x => (inputVal ? x.address.includes(inputVal) : x))
-              .map(e => {
-                return (
-                  <div className="col-12" key={e.id}>
-                    <Card
-                      title={e.address}
-                      footer={<Button label="View Store" />}
-                    >
-                      {'0.5 miles from you'}
-                    </Card>
-                  </div>
-                );
-              })}
+          {storesData
+            ?.filter(x => (inputVal ? x.address.includes(inputVal) : x))
+            .map(e => {
+              return (
+                <div className="col-12" key={e.id}>
+                  <Card
+                    title={e.address}
+                    footer={<Button label="View Store" />}
+                  >
+                    {e.distance.text + 'from you'}
+                  </Card>
+                </div>
+              );
+            })}
         </div>
       </div>
       <div className="w-8">
@@ -80,22 +81,19 @@ const StoreLocationPage = () => {
             center={center}
             zoom={10}
           >
-            {/* Child components, such as markers, info windows, etc. */}
-            <></>
-            {store.storesData &&
-              store.storesData
-                .filter(x => (inputVal ? x.address.includes(inputVal) : x))
-                .map(e => {
-                  return (
-                    <Marker
-                      key={e.id}
-                      position={{
-                        lat: parseFloat(e.lat),
-                        lng: parseFloat(e.lng),
-                      }}
-                    />
-                  );
-                })}
+            {storesData
+              ?.filter(x => (inputVal ? x.address.includes(inputVal) : x))
+              .map(e => {
+                return (
+                  <Marker
+                    key={e.id}
+                    position={{
+                      lat: parseFloat(e.lat),
+                      lng: parseFloat(e.lng),
+                    }}
+                  />
+                );
+              })}
             {coords.lat && coords.lng && (
               <InfoWindow position={{ lat: coords.lat, lng: coords.lng }}>
                 <div>You are here</div>

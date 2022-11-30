@@ -14,7 +14,7 @@ export const updateService = service => axios.post('/updateService', service);
 export const getServices = id => axios.get(`/serviceByCategory/${id}`);
 
 export const getStores = val => {
-  axios.get('/storeByDistance', val);
+  axios.post('/storeByDistance', val);
 };
 
 export const getStoresById = storeIdArray =>
