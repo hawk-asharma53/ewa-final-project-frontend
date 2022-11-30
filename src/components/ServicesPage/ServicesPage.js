@@ -8,10 +8,9 @@ import { useCart } from 'react-use-cart';
 import { toastMsg } from 'utility/utility';
 
 export const ServicesPage = () => {
-  const [state, setState] = useState({
-    servicesOffered: [], //product array goes here
-    primaryServiceFilterValue: 'Handyman', //product type string goes here
-  });
+  const store = useStore();
+  const [filterValue, setFilterValue] = useState('Handyman');
+  const [servicesOffered, setServicesOffered] = useState([]);
 
   const { addItem } = useCart();
 
@@ -21,43 +20,42 @@ export const ServicesPage = () => {
   };
 
   const handlePrimaryFilterChange = e => {
-    setState({ primaryServiceFilterValue: e.value });
+    setFilterValue(e.value);
   };
-  let store = useStore();
 
   useEffect(() => {
-    if (state.primaryServiceFilterValue === 'Handyman') {
+    if (filterValue === 'Handyman') {
       store.getServices(9);
-    } else if (state.primaryServiceFilterValue === 'Moving') {
+    } else if (filterValue === 'Moving') {
       store.getServices(10);
-    } else if (state.primaryServiceFilterValue === 'Furniture Assembly') {
+    } else if (filterValue === 'Furniture Assembly') {
       store.getServices(11);
-    } else if (state.primaryServiceFilterValue === 'Mounting & Installation') {
+    } else if (filterValue === 'Mounting & Installation') {
       store.getServices(12);
-    } else if (state.primaryServiceFilterValue === 'Cleaning') {
+    } else if (filterValue === 'Cleaning') {
       store.getServices(13);
-    } else if (state.primaryServiceFilterValue === 'Yardwork Services') {
+    } else if (filterValue === 'Yardwork Services') {
       store.getServices(14);
     }
-  }, [state.primaryServiceFilterValue]);
+  }, [filterValue]);
 
   useEffect(() => {
-    setState({ servicesOffered: store.serviceData });
+    setServicesOffered(store.serviceData);
   }, [store.serviceData]);
 
   return (
     <div className="productsPage">
       <span className="filtersRow">
         <SelectButton
-          value={state.primaryServiceFilterValue}
+          value={filterValue}
           options={ServiceFilters}
           onChange={e => handlePrimaryFilterChange(e)}
         ></SelectButton>
       </span>
       <span className="itemCarousel">
         <div className="grid">
-          {state.servicesOffered && state.servicesOffered.length > 0
-            ? state.servicesOffered.map(listItem => {
+          {servicesOffered && servicesOffered.length > 0
+            ? servicesOffered.map(listItem => {
                 return (
                   <div className="col-3" key={listItem.id}>
                     <ListingComponent
