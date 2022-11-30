@@ -1,0 +1,17 @@
+.order {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    padding-left: 100px;
+    padding-right: 100px;
+    border: 1px solid lightslategray;
+    border-radius: 5px;
+}
+
+.orderItem {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid lightslategray;
+    border-radius: 5px;
+}

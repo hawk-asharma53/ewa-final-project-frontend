@@ -8,6 +8,7 @@ const initialState = {
   productsData: [],
   serviceData: [],
   storesData: [],
+  userOrdersData: [],
 };
 const useStore = create((set, get) => ({
   // here get methods wil use for get the current state value
