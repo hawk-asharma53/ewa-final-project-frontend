@@ -41,6 +41,24 @@ export const Actions = set => ({
         console.log(error, 'EERROR');
       });
   },
+  getAllProducts: async id => {
+    await DATAAPI.getAllProducts()
+      .then(res => {
+        set({ productsData: res?.data?.data });
+      })
+      .catch(error => {
+        console.log(error, 'EERROR');
+      });
+  },
+  getAllServices: async id => {
+    await DATAAPI.getAllServices()
+      .then(res => {
+        set({ serviceData: res?.data?.data });
+      })
+      .catch(error => {
+        console.log(error, 'EERROR');
+      });
+  },
   getServices: async id => {
     await DATAAPI.getServices(id)
       .then(res => {
