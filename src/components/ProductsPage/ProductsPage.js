@@ -8,10 +8,9 @@ import { useCart } from 'react-use-cart';
 import { toastMsg } from 'utility/utility';
 
 export const ProductsPage = () => {
-  const [state, setState] = useState({
-    productsOffered: [], //product array goes here
-    primaryProductFilterValue: 'Paint', //product type string goes here
-  });
+  const store = useStore();
+  const [filterValue, setFilterValue] = useState('Paint');
+  const [productsOffered, setProductsOffered] = useState([]);
 
   const { addItem } = useCart();
 
@@ -21,49 +20,48 @@ export const ProductsPage = () => {
   };
 
   const handlePrimaryFilterChange = e => {
-    setState({ primaryProductFilterValue: e.value });
+    setFilterValue(e.value);
   };
-  let store = useStore();
 
   useEffect(() => {
-    if (state.primaryProductFilterValue === 'Paint') {
+    if (filterValue === 'Paint') {
       store.getProducts(1);
-    } else if (
-      state.primaryProductFilterValue === 'Heating, Cooling & Air Quality'
-    ) {
+    } else if (filterValue === 'Heating, Cooling & Air Quality') {
       store.getProducts(2);
-    } else if (state.primaryProductFilterValue === 'Garage & Storage') {
+    } else if (filterValue === 'Garage & Storage') {
       store.getProducts(3);
-    } else if (state.primaryProductFilterValue === 'Home Safety') {
+    } else if (filterValue === 'Home Safety') {
       store.getProducts(4);
-    } else if (state.primaryProductFilterValue === 'Kitchen Renovation') {
+    } else if (filterValue === 'Kitchen Renovation') {
       store.getProducts(5);
-    } else if (
-      state.primaryProductFilterValue === 'Wall Stickers & Coverings'
-    ) {
+    } else if (filterValue === 'Wall Stickers & Coverings') {
       store.getProducts(6);
     }
-  }, [state.primaryProductFilterValue]);
+  }, [filterValue]);
 
   useEffect(() => {
-    setState({ productsOffered: store.productsData });
+    setProductsOffered(store.productsData);
   }, [store.productsData]);
 
   return (
     <div className="productsPage">
       <span className="filtersRow">
         <SelectButton
-          value={state.primaryProductFilterValue}
+          value={filterValue}
           options={ProductFilters}
           onChange={e => handlePrimaryFilterChange(e)}
         ></SelectButton>
       </span>
       <span className="itemCarousel">
         <div className="grid">
-          {state.productsOffered && state.productsOffered.length > 0
-            ? state.productsOffered.slice(0, 50).map(listItem => {
+          {productsOffered && productsOffered.length > 0
+            ? productsOffered.slice(0, 50).map(listItem => {
                 return (
-                  <div className="col-3" key={listItem.id}>
+                  <div
+                    className="col-3"
+                    style={{ 'min-height': '500px' }}
+                    key={listItem.id}
+                  >
                     <ListingComponent
                       listItem={listItem}
                       addToCart={addToCart}

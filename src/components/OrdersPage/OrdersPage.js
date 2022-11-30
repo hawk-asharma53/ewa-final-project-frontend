@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import useStore from 'store/AuthState';
 import { toastMsg } from 'utility/utility';
-import { Rating } from 'primereact/rating';
+import { Tag } from 'primereact/tag';
 import { Badge } from 'primereact/badge';
 import storage from 'utility/storage';
 import './OrdersPage.css';
 import { Button } from 'primereact/button';
+import { routes } from 'utility/constants';
+import { useHistory } from 'react-router';
 
 export const OrdersPage = () => {
   const [ordersData, setOrdersData] = useState([]);
@@ -14,6 +16,7 @@ export const OrdersPage = () => {
   const [usersData, setUsersData] = useState([]);
   const [isManager, setManager] = useState(false);
   const store = useStore();
+  const history = useHistory();
 
   const userId = storage.get('userData', null).user_id;
   useEffect(() => {
@@ -72,6 +75,14 @@ export const OrdersPage = () => {
       : 'info';
   };
 
+  const canCancelOrder = status => {
+    return status === 'processing' || status === 'packaging';
+  };
+
+  const canWriteReview = status => {
+    return status === 'completed';
+  };
+
   const getStoreForPickup = storeId => {
     const storeObj = storesData?.find(store => store.id === storeId);
     if (storeObj) return storeObj.address + ', ' + storeObj.zipcode;
@@ -114,6 +125,11 @@ export const OrdersPage = () => {
         toastMsg('Failed to change status', true);
       }
     });
+  };
+
+  const handleReviewClicked = orderItems => {
+    storage.set('orderItemsForReview', orderItems);
+    history.push(routes.WRITE_REVIEW);
   };
 
   return (
@@ -187,12 +203,9 @@ export const OrdersPage = () => {
                 <div className="orderItem mt-1 mb-1">
                   <div className="d-flex flex-column w-50">
                     <h5>{item.title}</h5>
-                    <Rating
-                      value={item.rating}
-                      readOnly
-                      stars={5}
-                      cancel={false}
-                    />
+                    <Tag className="w-2" rounded>
+                      {orderItem.item_type}
+                    </Tag>
                   </div>
                   <div className="w-50 d-flex flex-row-reverse align-items-center">
                     <Badge
@@ -261,13 +274,24 @@ export const OrdersPage = () => {
               </div>
             ) : (
               <div className="d-flex flex-row-reverse align-items-center mt-4">
-                <Button
-                  label="Cancel Order"
-                  className="p-button-danger p-button-raised"
-                  onClick={() => {
-                    handleOrderCancel(order.id);
-                  }}
-                />
+                {canCancelOrder(order.status.toLowerCase()) && (
+                  <Button
+                    label="Cancel Order"
+                    className="p-button-danger p-button-raised"
+                    onClick={() => {
+                      handleOrderCancel(order.id);
+                    }}
+                  />
+                )}
+                {canWriteReview && (
+                  <Button
+                    className="p-button-warning p-button-raised"
+                    label="Write a Review"
+                    onClick={() => {
+                      handleReviewClicked(order.orderItems);
+                    }}
+                  />
+                )}
               </div>
             )}
           </div>

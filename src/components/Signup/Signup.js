@@ -22,7 +22,7 @@ const Signup = () => {
     console.log(values, 'Form Submitted');
     store.signUp({ ...values }, success => {
       if (success) {
-        history.push('/login');
+        history.push(routes.LOGIN);
       }
     });
   };
