@@ -2,6 +2,7 @@
 import AboutUs from 'components/AboutUs/AboutUs';
 import Cart from 'components/Cart/Cart';
 import { Login } from 'components/Login/Login';
+import MyAccountPage from 'components/MyAccountPage/MyAccountPage';
 import ProductsPage from 'components/ProductsPage/ProductsPage';
 import ServicesPage from 'components/ServicesPage/ServicesPage';
 import Signup from 'components/Signup/Signup';
@@ -22,6 +23,8 @@ export default () => {
       <Route exact path={routes.ABOUT} component={AboutUs} />
       <Route exact path={routes.PRODUCTS} component={ProductsPage} />
       <Route exact path={routes.SERVICES} component={ServicesPage} />
+      <Route exact path={routes.ABOUT} component={HomePage} />
+      <Route exact path={routes.MYACCOUNT} component={MyAccountPage} />
       <Route exact path={routes.MAP} component={StoreLocationPage} />
       <Route exact path="*" component={() => <Redirect to={routes.ROOT} />} />
     </Switch>
