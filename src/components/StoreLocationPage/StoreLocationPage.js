@@ -24,17 +24,19 @@ const StoreLocationPage = () => {
   const [coords, setCoords] = useState({ lat: 0, lng: 0 });
   let store = useStore();
   useEffect(() => {
-    store.getStores();
-  }, []);
-
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(position => {
-      setCoords({
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        setCoords({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
+        store.getStores({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        });
       });
-    });
-  }
+    }
+  }, [navigator.geolocation]);
 
   return (
     <div className="flex flex-row mt-4">

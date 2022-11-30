@@ -96,8 +96,8 @@ export const Actions = set => ({
         console.log(error, 'EERROR');
       });
   },
-  getStores: async () => {
-    await DATAAPI.getStores()
+  getStores: async location => {
+    await DATAAPI.getStores(location)
       .then(res => {
         set({ storesData: res?.data?.data });
       })
