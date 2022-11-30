@@ -41,3 +41,9 @@ export const getDashboardData = () => axios.get(`/dashboard`);
 export const getProductCount = () => axios.get(`/productCount`);
 export const getServiceCount = () => axios.get(`/serviceCount`);
 export const getWeekelyRevenue = () => axios.get(`/weekelyRevenue`);
+
+export const getDashboardDataByStore = storeId => axios.get(`/dashboard/${storeId}`);
+export const getProductCountByStore = storeId => axios.get(`/productCount/${storeId}`);
+export const getServiceCountByStore = storeId => axios.get(`/serviceCount/${storeId}`);
+export const getWeekelyRevenueByStore = storeId => axios.get(`/weekelyRevenue/${storeId}`);
+

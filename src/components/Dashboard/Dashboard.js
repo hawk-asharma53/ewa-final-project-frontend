@@ -1,5 +1,5 @@
 // import getConfig from 'next/config';
-import { getDashboardData, getProductCount, getServiceCount, getWeekelyRevenue } from 'api/dataAPI';
+import { getDashboardData, getDashboardDataByStore, getProductCount, getProductCountByStore, getServiceCount, getServiceCountByStore, getWeekelyRevenue, getWeekelyRevenueByStore } from 'api/dataAPI';
 import { Button } from 'primereact/button';
 import { Chart } from 'primereact/chart';
 import { Column } from 'primereact/column';
@@ -8,9 +8,13 @@ import { Menu } from 'primereact/menu';
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { ProductService } from '../../demo/services/ProductService';
 import './dashboard.css';
+import useStore from 'store/AuthState';
 
 
 const Dashboard = () => {
+    
+    let store = useStore();
+    
     const [products, setProducts] = useState(null);
     const menu1 = useRef(null);
     const menu2 = useRef(null);
@@ -25,10 +29,22 @@ const Dashboard = () => {
 
     useEffect( () => {
         async function getData() {
-            var response1 = await getDashboardData();
-            var response2 = await getProductCount();
-            var response3 = await getServiceCount();
-            var response4 = await getWeekelyRevenue();
+            var response1 = null;
+            var response2 = null;
+            var response3 = null;
+            var response4 = null;
+
+            if ( store.userData.user_type != "manager" ) {
+                response1 = await getDashboardData();
+                response2 = await getProductCount();
+                response3 = await getServiceCount();
+                response4 = await getWeekelyRevenue();
+            } else {
+                response1 = await getDashboardDataByStore(store.userData.storeId);
+                response2 = await getProductCountByStore(store.userData.storeId);
+                response3 = await getServiceCountByStore(store.userData.storeId);
+                response4 = await getWeekelyRevenueByStore(store.userData.storeId);
+            }
 
             var labels = [];
             var data = [];
