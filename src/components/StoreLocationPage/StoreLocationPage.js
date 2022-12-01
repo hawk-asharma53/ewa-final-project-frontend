@@ -45,7 +45,7 @@ const StoreLocationPage = () => {
   return (
     <div className="d-flex flex-column align-items-center">
       <h3 className="mt-4 mb-4">Stores Near Me</h3>
-      <div className="flex flex-row mt-4">
+      <div className="flex flex-row mt-4 w-100">
         <div
           className="w-4 ml-4 pr-4"
           style={{ height: '800px', overflowY: 'scroll' }}
