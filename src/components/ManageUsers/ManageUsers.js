@@ -8,6 +8,7 @@ import { Dialog } from 'primereact/dialog';
 import { Dropdown } from 'primereact/dropdown';
 import { getAllUsers } from 'api/dataAPI';
 import { signup, updateUserProfile } from 'api/authAPI';
+import useStore from 'store/AuthState';
 
 export const ManageUsers = () => {
   let emptyService = {
@@ -22,11 +23,14 @@ export const ManageUsers = () => {
   const [state, setState] = useState({
     services: [],
   });
+  const [stores, setStores] = useState([]);
   const [user, setUser] = useState(emptyService);
   const [serviceDialog, setServiceDialog] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const store = useStore();
 
   useEffect(() => {
+    store.getAllStores();
     getAllUsers()
       .then(function (response) {
         setState({ services: response?.data?.data });
@@ -35,6 +39,12 @@ export const ManageUsers = () => {
         console.log(error);
       });
   }, []);
+
+  useEffect(() => {
+    if (store.storesData) {
+      setStores(store.storesData);
+    }
+  }, [store.storesData]);
 
   const getFirstName = rowData => {
     return rowData.user_first_name;
@@ -128,6 +138,7 @@ export const ManageUsers = () => {
   const saveService = async () => {
     setSubmitted(true);
     user.email = user.user_email;
+    user.storeId = 2;
     delete user.user_email;
     if (user.user_id == null) {
       await signup(user);
