@@ -16,6 +16,7 @@ import { ProductDetailsPage } from 'components/ProductDetailsPage/ProductDetails
 import { WriteReviewPage } from 'components/WriteReviewPage/WriteReviewPage';
 import MyAccountPage from 'components/MyAccountPage/MyAccountPage';
 import useStore from 'store/AuthState';
+import { ManageUsers } from 'components/ManageUsers/ManageUsers';
 
 export default () => {
   const store = useStore();
@@ -44,6 +45,16 @@ export default () => {
         exact
         path={routes.PRODUCT_DETAILS}
         component={ProductDetailsPage}
+      />
+      <Route
+        exact
+        path={routes.MANAGE_USERS}
+        component={
+          store?.userData?.user_type === 'admin' ||
+          store?.userData?.user_type === 'manager'
+            ? ManageUsers
+            : HomePage
+        }
       />
       <Route
         exact

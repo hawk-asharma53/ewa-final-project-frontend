@@ -1,27 +1,27 @@
 export const productCategories = [
-    "Paint",
-    "Heating, Cooling & Air Quality",
-    "Garage & Storage",
-    "Home Safety",
-    "Kitchen Renovation",
-    "Wall Stickers & Coverings",
-    "Window & Window Supplies",
-    "Bathroom Renovation"
-]
+  'Paint',
+  'Heating, Cooling & Air Quality',
+  'Garage & Storage',
+  'Home Safety',
+  'Kitchen Renovation',
+  'Wall Stickers & Coverings',
+  'Window & Window Supplies',
+  'Bathroom Renovation',
+];
 
 const serviceCategories = [
-    "Handyman",
-    "Moving",
-    "Furniture Assembly",
-    "Mounting & Installation",
-    "Cleaning",
-    "Yardwork Services"
-]
+  'Handyman',
+  'Moving',
+  'Furniture Assembly',
+  'Mounting & Installation',
+  'Cleaning',
+  'Yardwork Services',
+];
 
-export function getProductCategory( categoryid ) {
-    return productCategories[categoryid-1];
+export function getProductCategory(categoryid) {
+  return productCategories[categoryid - 1];
 }
 
-export function getServiceCategory( categoryid ) {
-    return serviceCategories[categoryid-8];
+export function getServiceCategory(categoryid) {
+  return serviceCategories[categoryid - 8];
 }
