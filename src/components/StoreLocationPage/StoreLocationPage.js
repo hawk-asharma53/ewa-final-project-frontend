@@ -71,10 +71,7 @@ const StoreLocationPage = () => {
               .map(e => {
                 return (
                   <div className="col-12" key={e.id}>
-                    <Card
-                      title={e.address}
-                      footer={<Button label="View Store" />}
-                    >
+                    <Card title={e.address}>
                       {e.distance.text + 'les from you'}
                     </Card>
                   </div>
