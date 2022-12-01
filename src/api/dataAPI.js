@@ -50,6 +50,8 @@ export const getServiceCount = () => axios.get(`/serviceCount`);
 
 export const getWeekelyRevenue = () => axios.get(`/weekelyRevenue`);
 
+export const getAllUsers = () => axios.get(`/users`);
+
 export const getDashboardDataByStore = storeId =>
   axios.get(`/dashboard/${storeId}`);
 

@@ -14,6 +14,7 @@ export const routes = {
   ORDERS: '/orders',
   MANAGE_PRODUCTS: '/manage-products',
   MANAGE_SERVICES: '/manage-services',
+  MANAGE_USERS: '/manage-users',
   WRITE_REVIEW: '/write-review',
   PRODUCT_DETAILS: '/details',
 };

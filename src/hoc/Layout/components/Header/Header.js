@@ -28,7 +28,7 @@ export const Header = () => {
     { label: 'Dashboard' },
     { label: 'Manage Products' },
     { label: 'Manage Services' },
-    { label: 'Manage Stores' },
+    { label: 'Manage Users' },
   ];
 
   const handleCustomerTabChanged = e => {
@@ -67,7 +67,7 @@ export const Header = () => {
         navigateToPage(routes.MANAGE_SERVICES);
         break;
       case 3:
-        navigateToPage(routes.MAP);
+        navigateToPage(routes.MANAGE_USERS);
         break;
       default:
         console.log(e.index);
