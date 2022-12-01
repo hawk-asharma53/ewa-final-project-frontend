@@ -116,7 +116,7 @@ export const Header = () => {
             showAdminHeader
               ? handleAdminTabChanged(e)
               : showManagerHeader
-              ? handleManagerTabChanged
+              ? handleManagerTabChanged(e)
               : handleCustomerTabChanged(e)
           }
         />
