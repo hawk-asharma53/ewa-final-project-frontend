@@ -106,9 +106,10 @@ const HomePage = () => {
     <Oux>
       <div className="d-flex w-100 justify-content-evenly p-6">
         <div className="d-flex flex-column w-25">
-          <h5 className="mb-4">Serach For Products</h5>
+          <h5 className="mb-4">Search For Products</h5>
           <AutoComplete
             value={selectedProduct}
+            placeholder="Enter a Product"
             suggestions={suggestedProducts}
             completeMethod={searchProducts}
             itemTemplate={itemTemplate}
@@ -130,6 +131,7 @@ const HomePage = () => {
           <h5 className="mb-4">Search for Services</h5>
           <AutoComplete
             value={selectedService}
+            placeholder="Enter a Service"
             suggestions={suggestedServies}
             completeMethod={searchServices}
             itemTemplate={itemTemplate}
@@ -148,64 +150,80 @@ const HomePage = () => {
           />
         </div>
       </div>
-      <div className="grid mx-8 mt-4">
-        <div className="col-12 p-0">
-          <h1>Most Sold Services</h1>
+      {mostSoldServices.length > 0 ? (
+        <div className="grid mx-8 mt-4">
+          <div className="col-12 p-0">
+            <h1>Most Sold Services</h1>
+          </div>
+          {mostSoldServices &&
+            mostSoldServices.map(listItem => (
+              <div className="col-3">
+                <ListingComponent
+                  listItem={listItem}
+                  type={ListItemTypes.Service}
+                />
+              </div>
+            ))}
+          <div></div>
         </div>
-        {mostSoldServices &&
-          mostSoldServices.map(listItem => (
-            <div className="col-3">
-              <ListingComponent
-                listItem={listItem}
-                type={ListItemTypes.Service}
-              />
-            </div>
-          ))}
-        <div></div>
-      </div>
-      <div className="grid mx-8 mt-4">
-        <div className="col-12 p-0">
-          <h1>Most Sold Products</h1>
+      ) : (
+        ''
+      )}
+      {mostSoldProducts.length > 0 ? (
+        <div className="grid mx-8 mt-4">
+          <div className="col-12 p-0">
+            <h1>Most Sold Products</h1>
+          </div>
+          {mostSoldProducts &&
+            mostSoldProducts.map(listItem => (
+              <div className="col-3">
+                <ListingComponent
+                  listItem={listItem}
+                  type={ListItemTypes.Product}
+                />
+              </div>
+            ))}
+          <div></div>
         </div>
-        {mostSoldProducts &&
-          mostSoldProducts.map(listItem => (
-            <div className="col-3">
-              <ListingComponent
-                listItem={listItem}
-                type={ListItemTypes.Product}
-              />
-            </div>
-          ))}
-        <div></div>
-      </div>
-      <div className="grid mx-8 mt-4">
-        <div className="col-12 p-0">
-          <h1>Popular near you</h1>
+      ) : (
+        ''
+      )}
+      {popularNearYou.length > 0 ? (
+        <div className="grid mx-8 mt-4">
+          <div className="col-12 p-0">
+            <h1>Popular near you</h1>
+          </div>
+          {popularNearYou &&
+            popularNearYou.map(listItem => (
+              <div className="col-3">
+                <ListingComponent
+                  listItem={listItem}
+                  type={ListItemTypes.Product}
+                />
+              </div>
+            ))}
         </div>
-        {popularNearYou &&
-          popularNearYou.map(listItem => (
-            <div className="col-3">
-              <ListingComponent
-                listItem={listItem}
-                type={ListItemTypes.Product}
-              />
-            </div>
-          ))}
-      </div>
-      <div className="grid mx-8 mt-4">
-        <div className="col-12 p-0">
-          <h1>Bought Near You</h1>
+      ) : (
+        ''
+      )}
+      {boughtNearYou.length > 0 ? (
+        <div className="grid mx-8 mt-4">
+          <div className="col-12 p-0">
+            <h1>Bought Near You</h1>
+          </div>
+          {boughtNearYou &&
+            boughtNearYou.map(listItem => (
+              <div className="col-3">
+                <ListingComponent
+                  listItem={listItem}
+                  type={ListItemTypes.Product}
+                />
+              </div>
+            ))}
         </div>
-        {boughtNearYou &&
-          boughtNearYou.map(listItem => (
-            <div className="col-3">
-              <ListingComponent
-                listItem={listItem}
-                type={ListItemTypes.Product}
-              />
-            </div>
-          ))}
-      </div>
+      ) : (
+        ''
+      )}
     </Oux>
   );
 };

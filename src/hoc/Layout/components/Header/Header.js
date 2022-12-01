@@ -10,9 +10,8 @@ export const Header = () => {
   const [state, setState] = React.useState({ activeTabIndex: 0 });
   const history = useHistory();
   const store = useStore();
-  const showAdminHeader =
-    store?.userData?.user_type === 'admin' ||
-    store?.userData?.user_type === 'manager';
+  const showAdminHeader = store?.userData?.user_type === 'admin';
+  const showManagerHeader = store?.userData?.user_type === 'manager';
 
   const { totalUniqueItems } = useCart();
 
@@ -21,7 +20,6 @@ export const Header = () => {
     { label: 'Products' },
     { label: 'Services' },
     { label: 'Stores' },
-    { label: 'About' },
   ];
 
   const adminItems = [
@@ -29,6 +27,12 @@ export const Header = () => {
     { label: 'Manage Products' },
     { label: 'Manage Services' },
     { label: 'Manage Users' },
+  ];
+
+  const managerItems = [
+    { label: 'Dashboard' },
+    { label: 'Manage Products' },
+    { label: 'Manage Services' },
   ];
 
   const handleCustomerTabChanged = e => {
@@ -45,9 +49,6 @@ export const Header = () => {
         break;
       case 3:
         navigateToPage(routes.MAP);
-        break;
-      case 4:
-        navigateToPage(routes.ABOUT);
         break;
       default:
         console.log(e.index);
@@ -74,6 +75,23 @@ export const Header = () => {
     }
   };
 
+  const handleManagerTabChanged = e => {
+    setState({ activeTabIndex: e.index });
+    switch (e.index) {
+      case 0:
+        navigateToPage(routes.DASHBOARD);
+        break;
+      case 1:
+        navigateToPage(routes.MANAGE_PRODUCTS);
+        break;
+      case 2:
+        navigateToPage(routes.MANAGE_SERVICES);
+        break;
+      default:
+        console.log(e.index);
+    }
+  };
+
   const navigateToPage = path => {
     history.push(path);
   };
@@ -86,11 +104,19 @@ export const Header = () => {
     <header className="site-navbar site-navbar-target bg-white" role="banner">
       <div className="headerParentContainer">
         <TabMenu
-          model={showAdminHeader ? adminItems : customerItems}
+          model={
+            showAdminHeader
+              ? adminItems
+              : showManagerHeader
+              ? managerItems
+              : customerItems
+          }
           activeIndex={state.activeTabIndex}
           onTabChange={e =>
             showAdminHeader
               ? handleAdminTabChanged(e)
+              : showManagerHeader
+              ? handleManagerTabChanged
               : handleCustomerTabChanged(e)
           }
         />
