@@ -43,15 +43,29 @@ export const getOrdersStoreId = storeId =>
 export const addReview = review => axios.post('/review', review);
 
 export const getDashboardData = () => axios.get(`/dashboard`);
+
 export const getProductCount = () => axios.get(`/productCount`);
+
 export const getServiceCount = () => axios.get(`/serviceCount`);
+
 export const getWeekelyRevenue = () => axios.get(`/weekelyRevenue`);
 
 export const getDashboardDataByStore = storeId =>
   axios.get(`/dashboard/${storeId}`);
+
 export const getProductCountByStore = storeId =>
   axios.get(`/productCount/${storeId}`);
+
 export const getServiceCountByStore = storeId =>
   axios.get(`/serviceCount/${storeId}`);
+
 export const getWeekelyRevenueByStore = storeId =>
   axios.get(`/weekelyRevenue/${storeId}`);
+
+export const mostSoldServices = () => axios.get('/mostSoldServices');
+
+export const mostSoldProducts = () => axios.get('/mostSoldProducts');
+
+export const popularNearYou = coords => axios.post('/popularNearYou', coords);
+
+export const boughtNearYou = zipcode => axios.get(`/boughtNearYou/${zipcode}`);

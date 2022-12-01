@@ -210,4 +210,44 @@ export const Actions = set => ({
         callback(false);
       });
   },
+  mostSoldServices: async () => {
+    await DATAAPI.mostSoldServices()
+      .then(res => {
+        console.log('res', res);
+        set({ mostSoldServicesData: res?.data?.data });
+      })
+      .catch(error => {
+        console.log(error, 'EERROR');
+      });
+  },
+  mostSoldProducts: async () => {
+    await DATAAPI.mostSoldProducts()
+      .then(res => {
+        console.log('res', res);
+        set({ mostSoldProductsData: res?.data?.data });
+      })
+      .catch(error => {
+        console.log(error, 'EERROR');
+      });
+  },
+  popularNearYou: async coords => {
+    await DATAAPI.popularNearYou(coords)
+      .then(res => {
+        console.log('res', res);
+        set({ popularNearYouData: res?.data?.data });
+      })
+      .catch(error => {
+        console.log(error, 'EERROR');
+      });
+  },
+  boughtNearYou: async zipcode => {
+    await DATAAPI.boughtNearYou(zipcode)
+      .then(res => {
+        console.log('res', res);
+        set({ boughtNearYouData: res?.data?.data });
+      })
+      .catch(error => {
+        console.log(error, 'EERROR');
+      });
+  },
 });

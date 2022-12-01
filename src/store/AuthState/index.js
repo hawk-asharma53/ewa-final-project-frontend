@@ -10,6 +10,10 @@ const initialState = {
   storesData: [],
   userOrdersData: [],
   productReviewsData: [],
+  mostSoldServicesData: [],
+  mostSoldProductsData: [],
+  popularNearYouData: [],
+  boughtNearYouData: [],
 };
 const useStore = create((set, get) => ({
   // here get methods wil use for get the current state value

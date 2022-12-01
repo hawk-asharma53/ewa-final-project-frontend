@@ -9,6 +9,7 @@ import { useEffect } from 'react';
 import { routes } from 'utility/constants';
 import { useHistory } from 'react-router';
 import storage from 'utility/storage';
+import { ListItemTypes } from '../../utility/constants';
 
 const HomePage = () => {
   const store = useStore();
@@ -17,12 +18,33 @@ const HomePage = () => {
   const [productsOffered, setProductsOffered] = useState([]);
   const [suggestedProducts, setSuggestedProducts] = useState([]);
   const [suggestedServies, setSuggestedServices] = useState([]);
+  const [mostSoldServices, setMostSoldServices] = useState([]);
+  const [mostSoldProducts, setMostSoldProducts] = useState([]);
+  const [popularNearYou, setPopuplarNearYou] = useState([]);
+  const [boughtNearYou, setBoughtNearYou] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState('');
   const [selectedService, setSelectedService] = useState('');
+  const [storesData, setStoresData] = useState([]);
 
   useEffect(() => {
     store.getAllProducts();
     store.getAllServices();
+    store.mostSoldProducts();
+    store.mostSoldServices();
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(position => {
+        const coords = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude,
+        };
+        store.popularNearYou(coords);
+        store.getStoresByDistance(coords);
+      });
+    } else {
+      const coords = { lat: 41.88205, lng: -87.627826 };
+      store.popularNearYou(coords);
+      store.getStoresByDistance(coords);
+    }
   }, []);
 
   useEffect(() => {
@@ -32,6 +54,31 @@ const HomePage = () => {
   useEffect(() => {
     setServicesOffered(store.serviceData);
   }, [store.serviceData]);
+
+  useEffect(() => {
+    setMostSoldServices(store.mostSoldServicesData);
+  }, [store.mostSoldServicesData]);
+
+  useEffect(() => {
+    setBoughtNearYou(store.boughtNearYouData);
+  }, [store.boughtNearYouData]);
+
+  useEffect(() => {
+    setMostSoldProducts(store.mostSoldProductsData);
+  }, [store.mostSoldProductsData]);
+
+  useEffect(() => {
+    setPopuplarNearYou(store.popularNearYouData);
+  }, [store.popularNearYouData]);
+
+  useEffect(() => {
+    setStoresData(store.storesData);
+    const zipcode =
+      store.storesData && store.storesData.length > 0
+        ? store.storesData[0].zipcode
+        : 60616;
+    store.boughtNearYou(zipcode);
+  }, [store.storesData]);
 
   const searchProducts = e => {
     setSuggestedProducts(
@@ -103,63 +150,61 @@ const HomePage = () => {
       </div>
       <div className="grid mx-8 mt-4">
         <div className="col-12 p-0">
-          <h1>Trending</h1>
+          <h1>Most Sold Services</h1>
         </div>
-        {/* {productsOffered && productsOffered.length > 0 ? (
-          productsOffered.map(listItem => (
+        {mostSoldServices &&
+          mostSoldServices.map(listItem => (
             <div className="col-3">
               <ListingComponent
                 listItem={listItem}
-                type={ListItemTypes.Product}
+                type={ListItemTypes.Service}
               />
             </div>
-          ))
-        ) : (
-          <div>
-            <ProgressSpinner />
-          </div>
-        )} */}
+          ))}
         <div></div>
       </div>
       <div className="grid mx-8 mt-4">
         <div className="col-12 p-0">
-          <h1>Most bought</h1>
+          <h1>Most Sold Products</h1>
         </div>
-        {/* {productsOffered && productsOffered.length > 0 ? (
-          productsOffered.map(listItem => (
+        {mostSoldProducts &&
+          mostSoldProducts.map(listItem => (
             <div className="col-3">
               <ListingComponent
                 listItem={listItem}
                 type={ListItemTypes.Product}
               />
             </div>
-          ))
-        ) : (
-          <div>
-            <ProgressSpinner />
-          </div>
-        )} */}
+          ))}
         <div></div>
       </div>
       <div className="grid mx-8 mt-4">
         <div className="col-12 p-0">
           <h1>Popular near you</h1>
         </div>
-        {/* {productsOffered && productsOffered.length > 0 ? (
-          productsOffered.map(listItem => (
+        {popularNearYou &&
+          popularNearYou.map(listItem => (
             <div className="col-3">
               <ListingComponent
                 listItem={listItem}
                 type={ListItemTypes.Product}
               />
             </div>
-          ))
-        ) : (
-          <div>
-            <ProgressSpinner />
-          </div>
-        )} */}
-        <div></div>
+          ))}
+      </div>
+      <div className="grid mx-8 mt-4">
+        <div className="col-12 p-0">
+          <h1>Bought Near You</h1>
+        </div>
+        {boughtNearYou &&
+          boughtNearYou.map(listItem => (
+            <div className="col-3">
+              <ListingComponent
+                listItem={listItem}
+                type={ListItemTypes.Product}
+              />
+            </div>
+          ))}
       </div>
     </Oux>
   );

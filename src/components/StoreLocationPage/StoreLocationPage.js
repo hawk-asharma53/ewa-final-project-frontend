@@ -18,7 +18,7 @@ const center = { lat: 41.88205, lng: -87.627826 };
 
 const StoreLocationPage = () => {
   const [inputVal, setInputVal] = useState('');
-  const [coords, setCoords] = useState({ lat: 41.88205, lng: -87.627826 });
+  const [coords, setCoords] = useState(center);
   const [storesData, setStoresData] = useState([]);
   const store = useStore();
   useEffect(() => {
