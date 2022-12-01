@@ -76,7 +76,7 @@ const CheckoutPage = () => {
           if (response?.data?.data) {
             let data = {
               userId: zstore?.userData?.user_id,
-              storeId: form.storeId,
+              storeId: form.storeId === 1 ? null : form.storeId,
               status: 'Processing',
               total: cartTotal,
               paymentId: '123',
