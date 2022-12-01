@@ -96,8 +96,26 @@ export const Actions = set => ({
         console.log(error, 'EERROR');
       });
   },
-  getStores: async location => {
-    await DATAAPI.getStores(location)
+  getProductReviewById: async product => {
+    await DATAAPI.getProductReviewById(product)
+      .then(res => {
+        set({ productReviewsData: res?.data?.data });
+      })
+      .catch(error => {
+        console.log(error, 'EERROR');
+      });
+  },
+  getStoresByDistance: async location => {
+    await DATAAPI.getStoresByDistance(location)
+      .then(res => {
+        set({ storesData: res?.data?.data });
+      })
+      .catch(error => {
+        console.log(error, 'EERROR');
+      });
+  },
+  getAllStores: async () => {
+    await DATAAPI.getAllStores()
       .then(res => {
         set({ storesData: res?.data?.data });
       })

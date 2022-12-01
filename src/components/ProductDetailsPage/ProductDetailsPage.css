@@ -1,0 +1,9 @@
+.listCard {
+    margin: 0px 20px 0px 0px!important;
+    height: 100%;
+}
+
+.item-image {
+    height: 100%;
+    object-fit: contain;
+} 

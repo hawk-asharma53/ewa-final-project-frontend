@@ -93,8 +93,8 @@ export const OrdersPage = () => {
     const addressObj = addressesData?.find(address => address.id === addressId);
     if (addressObj) {
       return (
-        addressObj.aptno +
-        ', ' +
+        (addressObj.aptno && addressObj.aptno) +
+        (addressObj.aptno && ', ') +
         addressObj.street +
         ', ' +
         addressObj.city +
@@ -283,7 +283,7 @@ export const OrdersPage = () => {
                     }}
                   />
                 )}
-                {canWriteReview && (
+                {canWriteReview(order.status.toLowerCase()) && (
                   <Button
                     className="p-button-warning p-button-raised"
                     label="Write a Review"

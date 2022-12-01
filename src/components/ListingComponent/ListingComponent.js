@@ -15,12 +15,16 @@ class ListingComponent extends Component {
   componentDidMount() {}
 
   render() {
-    const { listItem, type, addToCart } = this.props;
+    const { listItem, type, addToCart, handleClick } = this.props;
     if (type === ListItemTypes.Service) {
       return (
         <Card
           className="listCard d-flex flex-column justify-content-center"
-          title={listItem.title}
+          title={
+            <span className="pointer-curser-span" onClick={handleClick}>
+              {listItem.title}
+            </span>
+          }
           subTitle={listItem.subcategory}
           footer={
             <Button onClick={() => addToCart(listItem)} label="Add to Cart" />
@@ -43,7 +47,11 @@ class ListingComponent extends Component {
       return (
         <Card
           className="listCard d-flex flex-column justify-content-between"
-          title={listItem.subcategory}
+          title={
+            <span className="pointer-curser-span" onClick={handleClick}>
+              {listItem.subcategory}
+            </span>
+          }
           subTitle={listItem.title}
           footer={
             <Button onClick={() => addToCart(listItem)} label="Add to Cart" />

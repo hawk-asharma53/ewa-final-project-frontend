@@ -6,9 +6,13 @@ import { ServiceFilters, ListItemTypes } from '../../utility/constants';
 import useStore from 'store/AuthState';
 import { useCart } from 'react-use-cart';
 import { toastMsg } from 'utility/utility';
+import { routes } from 'utility/constants';
+import { useHistory } from 'react-router';
+import storage from 'utility/storage';
 
 export const ServicesPage = () => {
   const store = useStore();
+  const history = useHistory();
   const [filterValue, setFilterValue] = useState('Handyman');
   const [servicesOffered, setServicesOffered] = useState([]);
 
@@ -62,6 +66,13 @@ export const ServicesPage = () => {
                       listItem={listItem}
                       type={ListItemTypes.Service}
                       addToCart={addToCart}
+                      handleClick={() => {
+                        storage.set('productDetail', {
+                          itemType: 'Service',
+                          itemDetail: listItem,
+                        });
+                        history.push(routes.PRODUCT_DETAILS);
+                      }}
                     />
                   </div>
                 );

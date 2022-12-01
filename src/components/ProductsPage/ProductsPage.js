@@ -6,9 +6,13 @@ import { ProductFilters, ListItemTypes } from '../../utility/constants';
 import useStore from 'store/AuthState';
 import { useCart } from 'react-use-cart';
 import { toastMsg } from 'utility/utility';
+import { routes } from 'utility/constants';
+import { useHistory } from 'react-router';
+import storage from 'utility/storage';
 
 export const ProductsPage = () => {
   const store = useStore();
+  const history = useHistory();
   const [filterValue, setFilterValue] = useState('Paint');
   const [productsOffered, setProductsOffered] = useState([]);
 
@@ -66,6 +70,13 @@ export const ProductsPage = () => {
                       listItem={listItem}
                       addToCart={addToCart}
                       type={ListItemTypes.Product}
+                      handleClick={() => {
+                        storage.set('productDetail', {
+                          itemType: 'Product',
+                          itemDetail: listItem,
+                        });
+                        history.push(routes.PRODUCT_DETAILS);
+                      }}
                     />
                   </div>
                 );

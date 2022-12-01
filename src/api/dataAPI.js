@@ -13,9 +13,11 @@ export const updateService = service => axios.post('/updateService', service);
 
 export const getServices = id => axios.get(`/serviceByCategory/${id}`);
 
-export const getStores = val => {
-  axios.post('/storeByDistance', val);
-};
+export const getProductReviewById = product =>
+  axios.post('/reviewById', product);
+
+export const getStoresByDistance = val => axios.post('/storeByDistance', val);
+export const getAllStores = () => axios.get('/store');
 
 export const getStoresById = storeIdArray =>
   axios.post('/storesById', storeIdArray);
@@ -26,9 +28,8 @@ export const getAddressById = addressIdArray =>
 export const getUsersById = userIdsArray =>
   axios.post('/userbyId', userIdsArray);
 
-export const updateOrderStatus = (orderId, status) => {
+export const updateOrderStatus = (orderId, status) =>
   axios.post('/updateOrderStatus', { orderId, status });
-};
 
 export const addAddress = address => axios.post('/address', address);
 

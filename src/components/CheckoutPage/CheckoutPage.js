@@ -20,7 +20,7 @@ const CheckoutPage = () => {
   let zstore = useStore();
 
   useEffect(() => {
-    zstore.getStores();
+    zstore.getAllStores();
   }, []);
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const CheckoutPage = () => {
           if (response?.data?.data) {
             let data = {
               userId: zstore?.userData?.user_id,
-              storeId: form.storeId === '' ? null : form.storeId,
+              storeId: form.storeId,
               status: 'Processing',
               total: cartTotal,
               paymentId: '123',
@@ -268,32 +268,36 @@ const CheckoutPage = () => {
           <div className="col-12 mb-2">
             <h4>Shipping Information</h4>
           </div>
-          <div className="col-6 w-12 grid">
-            <p>Pickup</p>
-            <Checkbox
-              onChange={e =>
-                setChecked({
-                  ...checked,
-                  pickUp: e.checked,
-                  delivery: !e.checked,
-                })
-              }
-              checked={checked.pickUp}
-            ></Checkbox>
-            <p>Delivery</p>
-            <Checkbox
-              onChange={e =>
-                setChecked({
-                  ...checked,
-                  delivery: e.checked,
-                  pickUp: !e.checked,
-                })
-              }
-              checked={checked.delivery}
-            ></Checkbox>
+          <div className="col-6 w-12 d-flex">
+            <div className="d-flex align-items-center mr-6">
+              <span className="mr-2">Pickup</span>
+              <Checkbox
+                onChange={e =>
+                  setChecked({
+                    ...checked,
+                    pickUp: e.checked,
+                    delivery: !e.checked,
+                  })
+                }
+                checked={checked.pickUp}
+              ></Checkbox>
+            </div>
+            <div className="d-flex align-items-center">
+              <span className="mr-2">Delivery</span>
+              <Checkbox
+                onChange={e =>
+                  setChecked({
+                    ...checked,
+                    delivery: e.checked,
+                    pickUp: !e.checked,
+                  })
+                }
+                checked={checked.delivery}
+              ></Checkbox>
+            </div>
           </div>
           {checked.pickUp && stores.length > 0 ? (
-            <div className="grid">
+            <div className="mt-4">
               <Dropdown
                 optionLabel="name"
                 value={form.storeId}
