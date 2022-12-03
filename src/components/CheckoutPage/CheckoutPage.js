@@ -55,7 +55,7 @@ const CheckoutPage = () => {
 
     let orders = [];
     items.forEach(e => {
-      orders.push(...orders, { itemId: e.id, quantity: e.quantity });
+      orders.push({ itemId: e.id, quantity: e.quantity });
     });
 
     if (
